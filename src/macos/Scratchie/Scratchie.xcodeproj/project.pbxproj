@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BC703635256B9A7E0024C6E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC703634256B9A7E0024C6E1 /* AppDelegate.swift */; };
+		BC703637256B9A7E0024C6E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC703636256B9A7E0024C6E1 /* ContentView.swift */; };
+		BC703639256B9A810024C6E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC703638256B9A810024C6E1 /* Assets.xcassets */; };
+		BC70363C256B9A810024C6E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC70363B256B9A810024C6E1 /* Preview Assets.xcassets */; };
+		BC70363F256B9A810024C6E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC70363D256B9A810024C6E1 /* Main.storyboard */; };
+		BC70364B256B9A820024C6E1 /* ScratchieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC70364A256B9A820024C6E1 /* ScratchieTests.swift */; };
+		BC703656256B9A820024C6E1 /* ScratchieUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC703655256B9A820024C6E1 /* ScratchieUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BC703647256B9A820024C6E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC703629256B9A7E0024C6E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC703630256B9A7E0024C6E1;
+			remoteInfo = Scratchie;
+		};
+		BC703652256B9A820024C6E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC703629256B9A7E0024C6E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC703630256B9A7E0024C6E1;
+			remoteInfo = Scratchie;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BC703631256B9A7E0024C6E1 /* Scratchie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scratchie.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC703634256B9A7E0024C6E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BC703636256B9A7E0024C6E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BC703638256B9A810024C6E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BC70363B256B9A810024C6E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BC70363E256B9A810024C6E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BC703640256B9A810024C6E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC703641256B9A810024C6E1 /* Scratchie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Scratchie.entitlements; sourceTree = "<group>"; };
+		BC703646256B9A810024C6E1 /* ScratchieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScratchieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC70364A256B9A820024C6E1 /* ScratchieTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchieTests.swift; sourceTree = "<group>"; };
+		BC70364C256B9A820024C6E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC703651256B9A820024C6E1 /* ScratchieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScratchieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC703655256B9A820024C6E1 /* ScratchieUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchieUITests.swift; sourceTree = "<group>"; };
+		BC703657256B9A820024C6E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC70362E256B9A7E0024C6E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC703643256B9A810024C6E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC70364E256B9A820024C6E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BC703628256B9A7E0024C6E1 = {
+			isa = PBXGroup;
+			children = (
+				BC703633256B9A7E0024C6E1 /* Scratchie */,
+				BC703649256B9A820024C6E1 /* ScratchieTests */,
+				BC703654256B9A820024C6E1 /* ScratchieUITests */,
+				BC703632256B9A7E0024C6E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BC703632256B9A7E0024C6E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC703631256B9A7E0024C6E1 /* Scratchie.app */,
+				BC703646256B9A810024C6E1 /* ScratchieTests.xctest */,
+				BC703651256B9A820024C6E1 /* ScratchieUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC703633256B9A7E0024C6E1 /* Scratchie */ = {
+			isa = PBXGroup;
+			children = (
+				BC703634256B9A7E0024C6E1 /* AppDelegate.swift */,
+				BC703636256B9A7E0024C6E1 /* ContentView.swift */,
+				BC703638256B9A810024C6E1 /* Assets.xcassets */,
+				BC70363D256B9A810024C6E1 /* Main.storyboard */,
+				BC703640256B9A810024C6E1 /* Info.plist */,
+				BC703641256B9A810024C6E1 /* Scratchie.entitlements */,
+				BC70363A256B9A810024C6E1 /* Preview Content */,
+			);
+			path = Scratchie;
+			sourceTree = "<group>";
+		};
+		BC70363A256B9A810024C6E1 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BC70363B256B9A810024C6E1 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BC703649256B9A820024C6E1 /* ScratchieTests */ = {
+			isa = PBXGroup;
+			children = (
+				BC70364A256B9A820024C6E1 /* ScratchieTests.swift */,
+				BC70364C256B9A820024C6E1 /* Info.plist */,
+			);
+			path = ScratchieTests;
+			sourceTree = "<group>";
+		};
+		BC703654256B9A820024C6E1 /* ScratchieUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BC703655256B9A820024C6E1 /* ScratchieUITests.swift */,
+				BC703657256B9A820024C6E1 /* Info.plist */,
+			);
+			path = ScratchieUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BC703630256B9A7E0024C6E1 /* Scratchie */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC70365A256B9A820024C6E1 /* Build configuration list for PBXNativeTarget "Scratchie" */;
+			buildPhases = (
+				BC70362D256B9A7E0024C6E1 /* Sources */,
+				BC70362E256B9A7E0024C6E1 /* Frameworks */,
+				BC70362F256B9A7E0024C6E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Scratchie;
+			productName = Scratchie;
+			productReference = BC703631256B9A7E0024C6E1 /* Scratchie.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BC703645256B9A810024C6E1 /* ScratchieTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC70365D256B9A820024C6E1 /* Build configuration list for PBXNativeTarget "ScratchieTests" */;
+			buildPhases = (
+				BC703642256B9A810024C6E1 /* Sources */,
+				BC703643256B9A810024C6E1 /* Frameworks */,
+				BC703644256B9A810024C6E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC703648256B9A820024C6E1 /* PBXTargetDependency */,
+			);
+			name = ScratchieTests;
+			productName = ScratchieTests;
+			productReference = BC703646256B9A810024C6E1 /* ScratchieTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BC703650256B9A820024C6E1 /* ScratchieUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC703660256B9A820024C6E1 /* Build configuration list for PBXNativeTarget "ScratchieUITests" */;
+			buildPhases = (
+				BC70364D256B9A820024C6E1 /* Sources */,
+				BC70364E256B9A820024C6E1 /* Frameworks */,
+				BC70364F256B9A820024C6E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC703653256B9A820024C6E1 /* PBXTargetDependency */,
+			);
+			name = ScratchieUITests;
+			productName = ScratchieUITests;
+			productReference = BC703651256B9A820024C6E1 /* ScratchieUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC703629256B9A7E0024C6E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1220;
+				TargetAttributes = {
+					BC703630256B9A7E0024C6E1 = {
+						CreatedOnToolsVersion = 12.2;
+					};
+					BC703645256B9A810024C6E1 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = BC703630256B9A7E0024C6E1;
+					};
+					BC703650256B9A820024C6E1 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = BC703630256B9A7E0024C6E1;
+					};
+				};
+			};
+			buildConfigurationList = BC70362C256B9A7E0024C6E1 /* Build configuration list for PBXProject "Scratchie" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BC703628256B9A7E0024C6E1;
+			productRefGroup = BC703632256B9A7E0024C6E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BC703630256B9A7E0024C6E1 /* Scratchie */,
+				BC703645256B9A810024C6E1 /* ScratchieTests */,
+				BC703650256B9A820024C6E1 /* ScratchieUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BC70362F256B9A7E0024C6E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC70363F256B9A810024C6E1 /* Main.storyboard in Resources */,
+				BC70363C256B9A810024C6E1 /* Preview Assets.xcassets in Resources */,
+				BC703639256B9A810024C6E1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC703644256B9A810024C6E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC70364F256B9A820024C6E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BC70362D256B9A7E0024C6E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC703637256B9A7E0024C6E1 /* ContentView.swift in Sources */,
+				BC703635256B9A7E0024C6E1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC703642256B9A810024C6E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC70364B256B9A820024C6E1 /* ScratchieTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC70364D256B9A820024C6E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC703656256B9A820024C6E1 /* ScratchieUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BC703648256B9A820024C6E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC703630256B9A7E0024C6E1 /* Scratchie */;
+			targetProxy = BC703647256B9A820024C6E1 /* PBXContainerItemProxy */;
+		};
+		BC703653256B9A820024C6E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC703630256B9A7E0024C6E1 /* Scratchie */;
+			targetProxy = BC703652256B9A820024C6E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BC70363D256B9A810024C6E1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC70363E256B9A810024C6E1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BC703658256B9A820024C6E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BC703659256B9A820024C6E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		BC70365B256B9A820024C6E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Scratchie/Scratchie.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Scratchie/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Scratchie/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.yukitsune.Scratchie;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BC70365C256B9A820024C6E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Scratchie/Scratchie.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Scratchie/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Scratchie/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.yukitsune.Scratchie;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BC70365E256B9A820024C6E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScratchieTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.yukitsune.ScratchieTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scratchie.app/Contents/MacOS/Scratchie";
+			};
+			name = Debug;
+		};
+		BC70365F256B9A820024C6E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScratchieTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.yukitsune.ScratchieTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scratchie.app/Contents/MacOS/Scratchie";
+			};
+			name = Release;
+		};
+		BC703661256B9A820024C6E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScratchieUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.yukitsune.ScratchieUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Scratchie;
+			};
+			name = Debug;
+		};
+		BC703662256B9A820024C6E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScratchieUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.yukitsune.ScratchieUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Scratchie;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC70362C256B9A7E0024C6E1 /* Build configuration list for PBXProject "Scratchie" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC703658256B9A820024C6E1 /* Debug */,
+				BC703659256B9A820024C6E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC70365A256B9A820024C6E1 /* Build configuration list for PBXNativeTarget "Scratchie" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC70365B256B9A820024C6E1 /* Debug */,
+				BC70365C256B9A820024C6E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC70365D256B9A820024C6E1 /* Build configuration list for PBXNativeTarget "ScratchieTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC70365E256B9A820024C6E1 /* Debug */,
+				BC70365F256B9A820024C6E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC703660256B9A820024C6E1 /* Build configuration list for PBXNativeTarget "ScratchieUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC703661256B9A820024C6E1 /* Debug */,
+				BC703662256B9A820024C6E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BC703629256B9A7E0024C6E1 /* Project object */;
+}
