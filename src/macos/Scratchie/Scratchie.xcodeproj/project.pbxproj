@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		BC4CE87D256FD6DE00DD6FAA /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CE87C256FD6DE00DD6FAA /* UserData.swift */; };
+		BC772B482572282500B52AA1 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = BC772B472572282500B52AA1 /* HotKey */; };
 		BCAFB068256E690800BEBF5A /* ScratchpadEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */; };
 		BCAFB06D256E69EB00BEBF5A /* Scratchpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAFB06C256E69EB00BEBF5A /* Scratchpad.swift */; };
 		BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD23798256E5FCE0087ACC5 /* ScratchieApp.swift */; };
@@ -59,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC772B482572282500B52AA1 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +159,9 @@
 			dependencies = (
 			);
 			name = Scratchie;
+			packageProductDependencies = (
+				BC772B472572282500B52AA1 /* HotKey */,
+			);
 			productName = Scratchie;
 			productReference = BCD23795256E5FCE0087ACC5 /* Scratchie.app */;
 			productType = "com.apple.product-type.application";
@@ -228,6 +233,9 @@
 				Base,
 			);
 			mainGroup = BCD2378C256E5FCE0087ACC5;
+			packageReferences = (
+				BC772B462572282500B52AA1 /* XCRemoteSwiftPackageReference "HotKey" */,
+			);
 			productRefGroup = BCD23796256E5FCE0087ACC5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -589,6 +597,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BC772B462572282500B52AA1 /* XCRemoteSwiftPackageReference "HotKey" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/HotKey";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BC772B472572282500B52AA1 /* HotKey */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC772B462572282500B52AA1 /* XCRemoteSwiftPackageReference "HotKey" */;
+			productName = HotKey;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCD2378D256E5FCE0087ACC5 /* Project object */;
 }
