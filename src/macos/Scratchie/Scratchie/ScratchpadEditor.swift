@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct CodeEditor: View {
+struct ScratchpadEditor: View {
     @State var scratchpad: Scratchpad
     
     var body: some View {

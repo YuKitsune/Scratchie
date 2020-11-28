@@ -7,15 +7,14 @@
 
 import Foundation
 
-struct Scratchpad: Hashable, Identifiable {
-    var id: Self { self }
-    var selected: Bool = false
+public struct Scratchpad {
+    public var content: String {
+        didSet {
+            UserData.userDefaults.set(content, forKey: "scratchpad")
+        }
+    }
     
-    var name: String
-    var content: String
-    
-    init (_ name: String) {
-        self.name = name
-        self.content = ""
+    init (content: String) {
+        self.content = content
     }
 }
