@@ -12,6 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         ScratchpadEditor(scratchpad: userData.scratchpad)
+            .onAppear(perform: ScratchieApp.configureStatusBarButton)            
     }
 }
 
