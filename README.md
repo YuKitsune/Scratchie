@@ -3,13 +3,13 @@
 Scratchie is a cross-platform, lightweight scratchpad with some cool stuff like cloud sync, markdown support, syntax highlighing for code-blocks, built-in diff tools, and probably some other cool stuff.
 
 # Roadmap
-1. macOS Menu Bar Application
-  - Invoked via key combo
+- ~~macOS Menu Bar Application~~
+  - ~~Invoked via key combo~~
   - Markdown support
   - Syntax highlighting
   - Manage multiple scratchpads
-2. WPF based implementation
-3. Web API for cloud sync
+- WPF based implementation
+- Web API for cloud sync
 
 # Contributing
 
