@@ -13,6 +13,7 @@ import HotKey
 final class ScratchieApp: App {
 
     static var statusBarItem: NSStatusItem!
+    static let modifiers: NSEvent.ModifierFlags = [NSEvent.ModifierFlags.command, NSEvent.ModifierFlags.option]
     var toggleVisibilityHotKey: HotKey
     
     var body: some Scene {
@@ -24,7 +25,7 @@ final class ScratchieApp: App {
     init() {
         
         // Create the show/hide hotkey
-        toggleVisibilityHotKey = HotKey(key: .r, modifiers: [.command, .option])
+        toggleVisibilityHotKey = HotKey(key: .r, modifiers: ScratchieApp.modifiers)
         toggleVisibilityHotKey.keyDownHandler = ScratchieApp.toggleVisability
     }
     
@@ -39,18 +40,18 @@ final class ScratchieApp: App {
             let menu = NSMenu()
             menu.autoenablesItems = false;
             
-            // BUG: action doesn't get invoked
-            menu.addItem(NSMenuItem(title: "Toggle Visability", action:  #selector(ScratchieApp.toggleVisabilityAction(_:)), keyEquivalent: "R"))
+            // Create the menu item
+            let item = NSMenuItem(title: "Toggle Visability", action:  #selector(toggleVisability), keyEquivalent: "r")
+            item.keyEquivalentModifierMask = modifiers
+            item.target = self
+            menu.addItem(item)
 
+            // Add the menu to the status bar item
             ScratchieApp.statusBarItem.menu = menu
         }
     }
     
-    @objc static func toggleVisabilityAction(_ sender : NSMenuItem) {
-        ScratchieApp.toggleVisability()
-    }
-    
-    static func toggleVisability() {
+    @objc static func toggleVisability() {
         if (!NSApp.isHidden && !NSApp.isActive) || NSApp.isHidden {
             NSApp.unhide(nil)
             NSApp.activate(ignoringOtherApps: true)
