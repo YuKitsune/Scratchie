@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		BC4CE87D256FD6DE00DD6FAA /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CE87C256FD6DE00DD6FAA /* UserData.swift */; };
 		BC772B482572282500B52AA1 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = BC772B472572282500B52AA1 /* HotKey */; };
+		BC8A50CA257F7BF100EF14EC /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BC8A50C9257F7BF100EF14EC /* HighlightedTextEditor */; };
+		BC8A50CF257F834C00EF14EC /* CodeHighlightingRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A50CE257F834C00EF14EC /* CodeHighlightingRules.swift */; };
 		BCAFB068256E690800BEBF5A /* ScratchpadEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */; };
 		BCAFB06D256E69EB00BEBF5A /* Scratchpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAFB06C256E69EB00BEBF5A /* Scratchpad.swift */; };
 		BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD23798256E5FCE0087ACC5 /* ScratchieApp.swift */; };
@@ -38,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		BC4CE87C256FD6DE00DD6FAA /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		BC8A50CE257F834C00EF14EC /* CodeHighlightingRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeHighlightingRules.swift; sourceTree = "<group>"; };
 		BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchpadEditor.swift; sourceTree = "<group>"; };
 		BCAFB06C256E69EB00BEBF5A /* Scratchpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scratchpad.swift; sourceTree = "<group>"; };
 		BCD23795256E5FCE0087ACC5 /* Scratchie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scratchie.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC8A50CA257F7BF100EF14EC /* HighlightedTextEditor in Frameworks */,
 				BC772B482572282500B52AA1 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,6 +117,7 @@
 				BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */,
 				BCAFB06C256E69EB00BEBF5A /* Scratchpad.swift */,
 				BC4CE87C256FD6DE00DD6FAA /* UserData.swift */,
+				BC8A50CE257F834C00EF14EC /* CodeHighlightingRules.swift */,
 			);
 			path = Scratchie;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 			name = Scratchie;
 			packageProductDependencies = (
 				BC772B472572282500B52AA1 /* HotKey */,
+				BC8A50C9257F7BF100EF14EC /* HighlightedTextEditor */,
 			);
 			productName = Scratchie;
 			productReference = BCD23795256E5FCE0087ACC5 /* Scratchie.app */;
@@ -235,6 +241,7 @@
 			mainGroup = BCD2378C256E5FCE0087ACC5;
 			packageReferences = (
 				BC772B462572282500B52AA1 /* XCRemoteSwiftPackageReference "HotKey" */,
+				BC8A50C8257F7BF100EF14EC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
 			);
 			productRefGroup = BCD23796256E5FCE0087ACC5 /* Products */;
 			projectDirPath = "";
@@ -282,6 +289,7 @@
 				BC4CE87D256FD6DE00DD6FAA /* UserData.swift in Sources */,
 				BCAFB068256E690800BEBF5A /* ScratchpadEditor.swift in Sources */,
 				BCD2379B256E5FCE0087ACC5 /* ContentView.swift in Sources */,
+				BC8A50CF257F834C00EF14EC /* CodeHighlightingRules.swift in Sources */,
 				BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -607,6 +615,14 @@
 				kind = branch;
 			};
 		};
+		BC8A50C8257F7BF100EF14EC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kyle-n/HighlightedTextEditor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -614,6 +630,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC772B462572282500B52AA1 /* XCRemoteSwiftPackageReference "HotKey" */;
 			productName = HotKey;
+		};
+		BC8A50C9257F7BF100EF14EC /* HighlightedTextEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC8A50C8257F7BF100EF14EC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */;
+			productName = HighlightedTextEditor;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

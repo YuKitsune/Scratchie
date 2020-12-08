@@ -7,13 +7,26 @@
 
 import Foundation
 import SwiftUI
+import HighlightedTextEditor
 
 struct ScratchpadEditor: View {
     @State var scratchpad: Scratchpad
     
     var body: some View {
-        TextEditor(text: $scratchpad.content)
-                    .padding(8)
-                    .font(.system(.body, design: .monospaced))
+        VStack {
+            HighlightedTextEditor(
+                text: $scratchpad.content,
+                highlightRules: .markdown)
+                .defaultFont(.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .thin))
+        }
+        .padding(2)
+    }
+}
+
+struct ScratchpadEditor_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ScratchpadEditor(scratchpad: UserData().scratchpad)
+        }
     }
 }
