@@ -5,7 +5,7 @@ Scratchie is a cross-platform, lightweight scratchpad with some cool stuff like 
 # Roadmap
 - ~~macOS Menu Bar Application~~
   - ~~Invoked via key combo~~
-  - Markdown support
+  - Markdown support (Partially working, implementation can be improved)
   - Syntax highlighting
   - Manage multiple scratchpads
 - WPF based implementation
