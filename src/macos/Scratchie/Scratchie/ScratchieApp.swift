@@ -52,11 +52,16 @@ final class ScratchieApp: App {
     }
     
     @objc static func toggleVisability() {
-        if (!NSApp.isHidden && !NSApp.isActive) || NSApp.isHidden {
+        
+        if NSApp.isHidden {
             NSApp.unhide(nil)
-            NSApp.activate(ignoringOtherApps: true)
         } else {
             NSApp.hide(nil)
+            return;
+        }
+        
+        if !NSApp.isActive {
+            NSApp.activate(ignoringOtherApps: true)
         }
     }
 }
