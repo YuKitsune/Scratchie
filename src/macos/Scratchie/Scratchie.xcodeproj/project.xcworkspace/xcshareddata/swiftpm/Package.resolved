@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "HighlightedTextEditor",
+        "repositoryURL": "https://github.com/kyle-n/HighlightedTextEditor",
+        "state": {
+          "branch": null,
+          "revision": "7b37862aa3113afc92d63a07f2986d72509cb63f",
+          "version": "1.5.5"
+        }
+      },
+      {
+        "package": "HotKey",
+        "repositoryURL": "https://github.com/soffes/HotKey",
+        "state": {
+          "branch": "master",
+          "revision": "c13662730cb5bc28de4a799854bbb018a90649bf",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

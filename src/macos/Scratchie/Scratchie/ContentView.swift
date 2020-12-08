@@ -8,19 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedScratchpad: Scratchpad?
+    @EnvironmentObject private var userData: UserData
     
     var body: some View {
-        NavigationView {
-            ScratchpadList(selectedScratchpad: $selectedScratchpad)
-            
-            if (selectedScratchpad != nil) {
-                CodeEditor(scratchpad: selectedScratchpad!)
-            } else {
-                Text("Select a Scratchpad")
-            }
-        }
-        .frame(minWidth: 700, minHeight: 300)
+        ScratchpadEditor(scratchpad: userData.scratchpad)
+            .onAppear(perform: ScratchieApp.configureStatusBarButton)            
     }
 }
 

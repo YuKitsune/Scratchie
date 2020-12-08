@@ -9,10 +9,15 @@ import SwiftUI
 import Combine
 
 final class UserData: ObservableObject  {
-    @Published var scratchpads: [Scratchpad] = [
-        Scratchpad("My First Scratchpad"),
-        Scratchpad("CS notes"),
-        Scratchpad("python snips"),
-        Scratchpad("aaaaaaa")
-    ]
+    public static var userDefaults = UserDefaults.standard
+    @Published var scratchpad: Scratchpad
+    
+    init() {
+        guard let scratchpadContent = UserData.userDefaults.string(forKey: "scratchpad") else {
+            scratchpad = Scratchpad(content: "")
+            return
+        }
+        
+        scratchpad = Scratchpad(content: scratchpadContent)
+    }
 }
