@@ -1,3 +1,5 @@
+> ⚠️ This is a work-in-progress, contributions are welcomed!
+
 # About
 
 Scratchie is a cross-platform, lightweight scratchpad with some cool stuff like cloud sync, markdown support, syntax highlighing for code-blocks, built-in diff tools, and probably some other cool stuff.
