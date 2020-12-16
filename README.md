@@ -10,6 +10,7 @@ Scratchie is a cross-platform, lightweight scratchpad with some cool stuff like 
   - Markdown support (Partially working, implementation can be improved)
   - Syntax highlighting
   - Diff tool
+  - Clipboard/Pasteboard integration
   - Manage multiple scratchpads
 - WPF based implementation
 - Web API for cloud sync
