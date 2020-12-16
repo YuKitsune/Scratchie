@@ -9,6 +9,7 @@ Scratchie is a cross-platform, lightweight scratchpad with some cool stuff like 
   - ~~Invoked via key combo~~
   - Markdown support (Partially working, implementation can be improved)
   - Syntax highlighting
+  - Diff tool
   - Manage multiple scratchpads
 - WPF based implementation
 - Web API for cloud sync
