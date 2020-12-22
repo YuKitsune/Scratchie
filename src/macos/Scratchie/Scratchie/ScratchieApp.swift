@@ -35,6 +35,9 @@ final class ScratchieApp: App {
             
             // Create the status item
             ScratchieApp.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.squareLength))
+            if let button = ScratchieApp.statusBarItem.button {
+                button.image = NSImage(named: "MenuBarIcon")
+            }
             
             // Create the menu
             let menu = NSMenu()
