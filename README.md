@@ -21,7 +21,7 @@
   - Diff tool
   - Clipboard/Pasteboard integration
   - Manage multiple scratchpads
-- WPF based implementation
+- Windows/Linux implementation (?)
 - Web API for cloud sync
 
 # Contributing
