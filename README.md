@@ -1,8 +1,17 @@
 > ⚠️ This is a work-in-progress, contributions are welcomed!
 
-# About
 
-Scratchie is a cross-platform, lightweight scratchpad with some cool stuff like cloud sync, markdown support, syntax highlighing for code-blocks, built-in diff tools, and probably some other cool stuff.
+<h1 align="center">
+	<img width="128" alt="Scratchie" src="Artwork/Logo - macOS.png">
+  <br />
+  Scratchie
+</h1>
+
+<h3 align="center">
+  <img width="512" alt="Scratchie" src="Artwork/Screen Shot.png">
+  <br />
+	A lightweight and capable scratchpad for macOS, with support for Markdown, syntax highlighting, and a few more features planned!
+</h3>
 
 # Roadmap
 - ~~macOS Menu Bar Application~~
