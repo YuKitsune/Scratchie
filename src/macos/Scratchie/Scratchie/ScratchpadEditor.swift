@@ -19,7 +19,6 @@ struct ScratchpadEditor: View {
                 highlightRules: .markdown)
                 .defaultFont(.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .thin))
         }
-        .padding(2)
     }
 }
 

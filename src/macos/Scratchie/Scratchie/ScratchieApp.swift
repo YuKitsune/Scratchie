@@ -12,30 +12,34 @@ import HotKey
 @objcMembers
 final class ScratchieApp: App {
 
-    static var statusBarItem: NSStatusItem!
-    static let modifiers: NSEvent.ModifierFlags = [NSEvent.ModifierFlags.command, NSEvent.ModifierFlags.option]
+    var statusBarItem: NSStatusItem!
+    let modifiers: NSEvent.ModifierFlags = [NSEvent.ModifierFlags.command, NSEvent.ModifierFlags.option]
     var toggleVisibilityHotKey: HotKey
-    
+        
+    // BUG: When the view is closed, it cannot be re-opened, may need to consider re-instanciating the view from the ScratchieApp file if it's been closed, or somehow overriding the close command
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(UserData())
+                .onAppear(perform: {
+                    self.configureStatusBarButton()
+                })
         }
     }
     
     init() {
         
         // Create the show/hide hotkey
-        toggleVisibilityHotKey = HotKey(key: .r, modifiers: ScratchieApp.modifiers)
-        toggleVisibilityHotKey.keyDownHandler = ScratchieApp.toggleVisability
+        toggleVisibilityHotKey = HotKey(key: .r, modifiers: self.modifiers)
+        toggleVisibilityHotKey.keyDownHandler = toggleVisability
     }
     
-    static func configureStatusBarButton() {
+    func configureStatusBarButton() {
         
-        if (ScratchieApp.statusBarItem == nil) {
+        if (self.statusBarItem == nil) {
             
             // Create the status item
-            ScratchieApp.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.squareLength))
-            if let button = ScratchieApp.statusBarItem.button {
+            self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.squareLength))
+            if let button = self.statusBarItem.button {
                 button.image = NSImage(named: "MenuBarIcon")
             }
             
@@ -50,11 +54,11 @@ final class ScratchieApp: App {
             menu.addItem(item)
 
             // Add the menu to the status bar item
-            ScratchieApp.statusBarItem.menu = menu
+            self.statusBarItem.menu = menu
         }
     }
     
-    @objc static func toggleVisability() {
+    @objc func toggleVisability() {
         
         if NSApp.isHidden {
             NSApp.unhide(nil)
