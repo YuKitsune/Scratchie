@@ -9,7 +9,6 @@ import SwiftUI
 import HotKey
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
     var popover = NSPopover.init()
     var statusBarItem: NSStatusItem?
     var toggleVisibilityHotKey: HotKey?
@@ -23,11 +22,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create the Content View
         let contentView = ContentView()
             .environmentObject(UserData())
-            .frame(width: 600, height: 600, alignment: .center)
+            .frame(width: 300, height: 400, alignment: .center)
 
         // Set the SwiftUI's ContentView to the Popover's ContentViewController
         // Todo: Find out how to allow the user to resize the popover
-        popover.behavior = .transient // !!! - This does not seem to work in SwiftUI2.0 or macOS BigSur yet
         popover.contentViewController = NSViewController()
         popover.contentViewController?.view = NSHostingView(rootView: contentView)
                 
@@ -46,14 +44,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @objc func showPopover() {
+    func showPopover() {
         if let button = statusBarItem?.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-//            !!! - displays the popover window with an offset in x in macOS BigSur.
         }
     }
     
-    @objc func closePopover() {
+    func closePopover() {
         popover.performClose(nil)
     }
 }

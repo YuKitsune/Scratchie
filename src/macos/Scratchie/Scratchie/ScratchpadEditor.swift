@@ -11,7 +11,6 @@ import HighlightedTextEditor
 
 struct ScratchpadEditor: View {
     @State var scratchpad: Scratchpad
-    
     var body: some View {
         VStack {
             HighlightedTextEditor(

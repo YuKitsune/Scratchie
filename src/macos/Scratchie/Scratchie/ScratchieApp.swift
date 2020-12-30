@@ -9,7 +9,6 @@ import SwiftUI
 import HotKey
 
 @main
-@objcMembers
 final class ScratchieApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
