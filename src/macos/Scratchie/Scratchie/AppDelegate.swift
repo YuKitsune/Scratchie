@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Set the SwiftUI's ContentView to the Popover's ContentViewController
         // Todo: Find out how to allow the user to resize the popover
         popover.contentViewController = NSViewController()
+        popover.behavior = .transient
         popover.contentViewController?.view = NSHostingView(rootView: contentView)
                 
         // Create the status item

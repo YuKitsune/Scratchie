@@ -10,7 +10,18 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var userData: UserData
     var body: some View {
-        ScratchpadEditor(scratchpad: userData.scratchpad)
+        VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    // Todo
+                }, label: {
+                    Text("Quit")
+                }).padding(2)
+            }
+            .padding(5)
+            ScratchpadEditor(scratchpad: userData.scratchpad)
+        }
     }
 }
     
