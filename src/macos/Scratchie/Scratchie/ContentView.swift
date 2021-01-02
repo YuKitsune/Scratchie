@@ -13,15 +13,18 @@ struct ContentView: View {
         VStack(spacing: 0) {
             HStack {
                 Spacer()
-                Button(action: {
-                    // Todo
-                }, label: {
+                Button(action: self.Quit,
+                       label: {
                     Text("Quit")
                 }).padding(2)
             }
             .padding(5)
             ScratchpadEditor(scratchpad: userData.scratchpad)
         }
+    }
+    
+    func Quit() {
+        NSApp.terminate(nil)
     }
 }
     
