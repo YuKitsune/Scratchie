@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create the Content View
         let contentView = ContentView()
             .environmentObject(UserData())
-            .frame(width: 300, height: 400, alignment: .center)
+            .frame(width: 400, height: 500, alignment: .center)
 
         // Set the SwiftUI's ContentView to the Popover's ContentViewController
         // Todo: Find out how to allow the user to resize the popover
@@ -46,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func showPopover() {
+        // Bug: Popover is not centered
         if let button = statusBarItem?.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
