@@ -5,11 +5,12 @@
 //  Created by Eoin Motherway on 27/12/20.
 //
 
+import AppKit
 import SwiftUI
 import HotKey
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var popover = NSPopover.init()
+    var popover: NSPopover?
     var statusBarItem: NSStatusItem?
     var toggleVisibilityHotKey: HotKey?
 
@@ -20,15 +21,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         toggleVisibilityHotKey!.keyDownHandler = togglePopover
         
         // Create the Content View
+        let size = NSSize(width: 400, height: 500)
         let contentView = ContentView()
             .environmentObject(UserData())
-            .frame(width: 400, height: 500, alignment: .center)
+            .frame(width: size.width, height: size.height, alignment: .center)
 
         // Set the SwiftUI's ContentView to the Popover's ContentViewController
         // Todo: Find out how to allow the user to resize the popover
-        popover.contentViewController = NSViewController()
-        popover.behavior = .transient
-        popover.contentViewController?.view = NSHostingView(rootView: contentView)
+        self.popover = NSPopover.init()
+        self.popover?.contentSize = size
+        self.popover?.behavior = .transient
+        self.popover?.contentViewController = NSHostingController(rootView: contentView)
                 
         // Create the status item
         self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.squareLength))
@@ -38,21 +41,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func togglePopover() {
-        if popover.isShown {
-            closePopover()
-        } else {
-            showPopover()
+        if let popover = self.popover {
+            if popover.isShown {
+                closePopover()
+            } else {
+                showPopover()
+            }
         }
     }
     
     func showPopover() {
         // Bug: Popover is not centered
         if let button = statusBarItem?.button {
-            popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+            self.popover?.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
     }
     
     func closePopover() {
-        popover.performClose(nil)
+        self.popover?.performClose(nil)
     }
 }
