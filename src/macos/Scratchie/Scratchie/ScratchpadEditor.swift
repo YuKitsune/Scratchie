@@ -9,15 +9,18 @@ import Foundation
 import SwiftUI
 import HighlightedTextEditor
 
+// Todo: Remove background
+
 struct ScratchpadEditor: View {
     @State var scratchpad: Scratchpad
-    
     var body: some View {
         VStack {
             HighlightedTextEditor(
                 text: $scratchpad.content,
                 highlightRules: .markdown)
                 .defaultFont(.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .thin))
+                .drawsBackground(false)
+                .backgroundColor(.clear)
         }
     }
 }
