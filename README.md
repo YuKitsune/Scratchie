@@ -21,6 +21,11 @@
   - Diff tool
   - Clipboard/Pasteboard integration
   - Manage multiple scratchpads
+  - Export to various formats and programs
+    - Google Docs and other equivalents 
+    - Markdown
+    - GitHub Issue/PR
+    - API for custom exporting?
 - Windows/Linux implementation (?)
 - Web API for cloud sync
 
