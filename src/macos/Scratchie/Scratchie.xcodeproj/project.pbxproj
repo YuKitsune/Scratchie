@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5469A12030B28921CAC46531 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469A9430AFD9EABFB13DF9E /* MarkdownParser.swift */; };
+		5469A743C5F2DB32A4D29C96 /* MarkdownToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469A46FC36B320229CE4F99 /* MarkdownToken.swift */; };
 		BC4CE87D256FD6DE00DD6FAA /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4CE87C256FD6DE00DD6FAA /* UserData.swift */; };
-		BC772B482572282500B52AA1 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = BC772B472572282500B52AA1 /* HotKey */; };
-		BC8A50CA257F7BF100EF14EC /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BC8A50C9257F7BF100EF14EC /* HighlightedTextEditor */; };
+		BC6648D925B2BB2F00FCA07E /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = BC772B472572282500B52AA1 /* HotKey */; };
+		BC6648DA25B2BB2F00FCA07E /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BC8A50C9257F7BF100EF14EC /* HighlightedTextEditor */; };
+		BC6648EB25B2BBE200FCA07E /* MarkdownParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6648EA25B2BBE200FCA07E /* MarkdownParserTests.swift */; };
 		BCAFB068256E690800BEBF5A /* ScratchpadEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */; };
 		BCAFB06D256E69EB00BEBF5A /* Scratchpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAFB06C256E69EB00BEBF5A /* Scratchpad.swift */; };
 		BCB8132225984A2A00D44B35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB8132125984A2A00D44B35 /* AppDelegate.swift */; };
@@ -39,7 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5469A46FC36B320229CE4F99 /* MarkdownToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownToken.swift; sourceTree = "<group>"; };
+		5469A9430AFD9EABFB13DF9E /* MarkdownParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownParser.swift; sourceTree = "<group>"; };
 		BC4CE87C256FD6DE00DD6FAA /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		BC6648EA25B2BBE200FCA07E /* MarkdownParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownParserTests.swift; sourceTree = "<group>"; };
 		BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchpadEditor.swift; sourceTree = "<group>"; };
 		BCAFB06C256E69EB00BEBF5A /* Scratchpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scratchpad.swift; sourceTree = "<group>"; };
 		BCB8132125984A2A00D44B35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,8 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC8A50CA257F7BF100EF14EC /* HighlightedTextEditor in Frameworks */,
-				BC772B482572282500B52AA1 /* HotKey in Frameworks */,
+				BC6648DA25B2BB2F00FCA07E /* HighlightedTextEditor in Frameworks */,
+				BC6648D925B2BB2F00FCA07E /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +91,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5469AF6CC12058DDCAA9F418 /* MarkdownParser */ = {
+			isa = PBXGroup;
+			children = (
+				5469A9430AFD9EABFB13DF9E /* MarkdownParser.swift */,
+				5469A46FC36B320229CE4F99 /* MarkdownToken.swift */,
+			);
+			path = MarkdownParser;
+			sourceTree = "<group>";
+		};
 		BCD2378C256E5FCE0087ACC5 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +133,7 @@
 				BCAFB06C256E69EB00BEBF5A /* Scratchpad.swift */,
 				BC4CE87C256FD6DE00DD6FAA /* UserData.swift */,
 				BCB8132125984A2A00D44B35 /* AppDelegate.swift */,
+				5469AF6CC12058DDCAA9F418 /* MarkdownParser */,
 			);
 			path = Scratchie;
 			sourceTree = "<group>";
@@ -135,6 +151,7 @@
 			children = (
 				BCD237AB256E5FD00087ACC5 /* ScratchieTests.swift */,
 				BCD237AD256E5FD00087ACC5 /* Info.plist */,
+				BC6648EA25B2BBE200FCA07E /* MarkdownParserTests.swift */,
 			);
 			path = ScratchieTests;
 			sourceTree = "<group>";
@@ -215,7 +232,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1230;
 				TargetAttributes = {
 					BCD23794256E5FCE0087ACC5 = {
 						CreatedOnToolsVersion = 12.2;
@@ -291,6 +308,8 @@
 				BCAFB068256E690800BEBF5A /* ScratchpadEditor.swift in Sources */,
 				BCD2379B256E5FCE0087ACC5 /* ContentView.swift in Sources */,
 				BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */,
+				5469A12030B28921CAC46531 /* MarkdownParser.swift in Sources */,
+				5469A743C5F2DB32A4D29C96 /* MarkdownToken.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCD237AC256E5FD00087ACC5 /* ScratchieTests.swift in Sources */,
+				BC6648EB25B2BBE200FCA07E /* MarkdownParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +467,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Scratchie/Scratchie.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Scratchie/Preview Content\"";
@@ -469,6 +490,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Scratchie/Scratchie.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Scratchie/Preview Content\"";
