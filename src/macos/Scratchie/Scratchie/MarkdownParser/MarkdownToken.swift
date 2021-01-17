@@ -52,6 +52,9 @@ class MarkdownItalic: MarkdownToken {
 class MarkdownUnderline: MarkdownToken {
 }
 
+class MarkdownStrikethrough: MarkdownToken {
+}
+
 class MarkdownLink: MarkdownToken {
 
     private let linkTextRegex = "(?<=\\[).+(?=\\])"
@@ -78,7 +81,6 @@ class MarkdownLink: MarkdownToken {
 
 class MarkdownImage: MarkdownLink {
 }
-
 
 class MarkdownTable: MarkdownToken {
 }

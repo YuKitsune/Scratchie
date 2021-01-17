@@ -69,14 +69,122 @@ class MarkdownParser {
             // Todo: Table
 
             // Made it this far, can only be a paragraph
-            let paragraphToken = MarkdownParagraph(value: String(line))
-            tokens.append(paragraphToken)
+            if tokens.last is MarkdownParagraph {
+                tokens.last?.value.append("\n\(line)")
+            } else {
+                let paragraphToken = MarkdownParagraph(value: String(line))
+                tokens.append(paragraphToken)
+            }
         }
 
         // Checked all lines, make sure there is no in-progress code-block
         if currentCodeBlock != nil {
             tokens.append(currentCodeBlock!)
             currentCodeBlock = nil
+        }
+
+        // Split paragraphs into normal, bold, italic, etc
+        // Todo: clean this up...
+        var resultTokens = [MarkdownToken]()
+        for token in tokens {
+
+            if token is MarkdownParagraph {
+                var paragraph = token as! MarkdownParagraph
+                var tokensForParagraph = [MarkdownToken]()
+
+                var lastCharacter: Character?
+                var currentToken: MarkdownToken?
+                for character in paragraph.value {
+
+                    // If we're in a token, then add and check if we've finished
+                    if !(currentToken is MarkdownParagraph) {
+                        currentToken?.value.append(character)
+
+                        // Bold
+                        if character == "*" && lastCharacter == "*" {
+                            tokensForParagraph.append(currentToken!)
+                            currentToken = nil
+                            continue
+                        }
+
+                        // Underline
+                        if character == "_" || lastCharacter == "_"{
+                            tokensForParagraph.append(currentToken!)
+                            currentToken = nil
+                            continue
+                        }
+
+                        // Strikethrough
+                        if character == "~" || character == "~"{
+                            tokensForParagraph.append(currentToken!)
+                            currentToken = nil
+                            continue
+                        }
+
+                        // Italic
+                        if character == "*" || character == "_"{
+                            tokensForParagraph.append(currentToken!)
+                            currentToken = nil
+                            continue
+                        }
+                    }
+
+                    // Bold
+                    if character == "*" && lastCharacter == "*" {
+
+                        if currentToken != nil {
+                            tokensForParagraph.append(currentToken!)
+                        }
+                        currentToken = MarkdownBold(value: String("**"))
+                        continue
+                    }
+
+                    // Underline
+                    if character == "_" || lastCharacter == "_"{
+
+                        if currentToken != nil {
+                            tokensForParagraph.append(currentToken!)
+                        }
+                        currentToken = MarkdownUnderline(value: String("__"))
+                        continue
+                    }
+
+                    // Strikethrough
+                    if character == "~" || character == "~"{
+
+                        if currentToken != nil {
+                            tokensForParagraph.append(currentToken!)
+                        }
+                        currentToken = MarkdownStrikethrough(value: String("~~"))
+                        continue
+                    }
+
+                    // Italic
+                    if character == "*" || character == "_"{
+
+                        if currentToken != nil {
+                            tokensForParagraph.append(currentToken!)
+                        }
+                        currentToken = MarkdownItalic(value: String("**"))
+                        continue
+                    }
+
+                    // Made it here, just a normal paragraph element
+                    if currentToken == nil {
+                        currentToken = MarkdownParagraph(value: String(character))
+                    } else {
+                        currentToken!.value.append(character)
+                    }
+                }
+
+                if currentToken != nil {
+                    tokensForParagraph.append(currentToken!)
+                }
+
+                resultTokens.append(contentsOf: tokensForParagraph);
+            } else {
+                resultTokens.append(token)
+            }
         }
 
         return tokens
