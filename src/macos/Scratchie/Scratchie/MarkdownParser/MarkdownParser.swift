@@ -83,6 +83,21 @@ class MarkdownParser {
             currentCodeBlock = nil
         }
 
+
+        // First pass of tokens, insert links and images
+        let imageRegex = try! NSRegularExpression(pattern: "(?<=!)(\\[.+\\])(\\(.+\\))");
+        let linkRegex = try! NSRegularExpression(pattern: "(?<!!)(\\[.+\\])(\\(.+\\))");
+        for token in tokens {
+            if token is MarkdownParagraph {
+                let imageMatches = imageRegex.matches(
+                        in: token.value,
+                        range: NSRange(token.value.startIndex..., in: token.value))
+                for match in imageMatches {
+                    
+                }
+            }
+        }
+
         // Split paragraphs into normal, bold, italic, etc
         // Todo: clean this up...
         var resultTokens = [MarkdownToken]()
@@ -127,6 +142,33 @@ class MarkdownParser {
                             currentToken = nil
                             continue
                         }
+
+                        // Todo: Combine these two
+                        // Image
+                        if currentToken is MarkdownImage {
+                            let match = imageRegex.firstMatch(
+                                    in: currentToken!.value,
+                                    options: .withoutAnchoringBounds,
+                                    range: NSRange(currentToken!.value)!)
+                            if match != nil{
+                                tokensForParagraph.append(currentToken!)
+                                currentToken = nil
+                                continue
+                            }
+                        }
+
+                        // Link
+                        if currentToken is MarkdownLink {
+                            let match = linkRegex.firstMatch(
+                                    in: currentToken!.value,
+                                    options: .withoutAnchoringBounds,
+                                range: NSRange(location: 0, length: currentToken!.value.count))
+                            if match != nil {
+                                tokensForParagraph.append(currentToken!)
+                                currentToken = nil
+                                continue
+                            }
+                        }
                     }
 
                     // Bold
@@ -167,6 +209,21 @@ class MarkdownParser {
                         }
                         currentToken = MarkdownItalic(value: String("**"))
                         continue
+                    }
+                    
+                    // Link/Image
+                    if character == "[" {
+                        if currentToken != nil && currentToken is MarkdownParagraph {
+                            tokensForParagraph.append(currentToken!)
+                            
+                            if lastCharacter == "!" {
+                                currentToken = MarkdownImage(value: String("!["))
+                            } else {
+                                currentToken = MarkdownLink(value: String("["))
+                            }
+                            
+                            continue
+                        }
                     }
 
                     // Made it here, just a normal paragraph element

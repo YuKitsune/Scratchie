@@ -156,4 +156,40 @@ class MarkdownParserTests: XCTestCase {
             }
         }
     }
+
+    func testLinkAndImageTokenizes() {
+
+        // Arrange
+        let parser = MarkdownParser()
+        let markdown = """
+                       This is a paragraph
+                       [This is a link](https://github.com) 
+                       This is also a paragraph
+                       ![This is an image](https://github.githubassets.com/images/modules/logos_page/Octocat.png) 
+                       This is a paragraph [with an inline link](https://github.com) and also with an ![inline image](https://github.githubassets.com/images/modules/logos_page/Octocat.png)
+                       """
+
+        // Act
+        let tokens = parser.tokenize(markdown)
+
+        // Assert
+        XCTAssertEqual(tokens.count, 8)
+        for i in 0...tokens.count - 1 {
+            let token = tokens[i]
+
+            switch i {
+            case 1, 5:
+                XCTAssertTrue(token is MarkdownLink)
+                let link = token as! MarkdownLink
+                XCTAssertEqual(link.url, "https://github.com")
+
+            case 3, 7:
+                XCTAssertTrue(token is MarkdownImage)
+                let link = token as! MarkdownImage
+                XCTAssertEqual(link.url, "https://github.githubassets.com/images/modules/logos_page/Octocat.png")
+            default:
+                XCTAssertFalse(token is MarkdownParagraph)
+            }
+        }
+    }
 }
