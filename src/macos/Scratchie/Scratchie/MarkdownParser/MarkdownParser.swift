@@ -4,6 +4,7 @@
 
 import Foundation
 
+// Todo: This needs a big refactor. Very unhappy with it...
 class MarkdownParser {
 
     let boldRegex = try! NSRegularExpression(pattern: "(\\*{2}).*?(\\*{2})")
