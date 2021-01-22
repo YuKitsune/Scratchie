@@ -87,32 +87,23 @@ class MarkdownParser {
         // First pass of tokens, insert links and images
         let imageRegex = try! NSRegularExpression(pattern: "(?<=!)(\\[.+\\])(\\(.+\\))");
         let linkRegex = try! NSRegularExpression(pattern: "(?<!!)(\\[.+\\])(\\(.+\\))");
-        for token in tokens {
-            if token is MarkdownParagraph {
-                let imageMatches = imageRegex.matches(
-                        in: token.value,
-                        range: NSRange(token.value.startIndex..., in: token.value))
-                for match in imageMatches {
-                    
-                }
-            }
-        }
-
+        
         // Split paragraphs into normal, bold, italic, etc
         // Todo: clean this up...
         var resultTokens = [MarkdownToken]()
         for token in tokens {
 
             if token is MarkdownParagraph {
-                var paragraph = token as! MarkdownParagraph
+                let paragraph = token as! MarkdownParagraph
                 var tokensForParagraph = [MarkdownToken]()
 
                 var lastCharacter: Character?
                 var currentToken: MarkdownToken?
                 for character in paragraph.value {
+                    defer { lastCharacter = character }
 
                     // If we're in a token, then add and check if we've finished
-                    if !(currentToken is MarkdownParagraph) {
+                    if (currentToken as? MarkdownParagraph?) == nil {
                         currentToken?.value.append(character)
 
                         // Bold
@@ -149,7 +140,7 @@ class MarkdownParser {
                             let match = imageRegex.firstMatch(
                                     in: currentToken!.value,
                                     options: .withoutAnchoringBounds,
-                                    range: NSRange(currentToken!.value)!)
+                                range: NSRange(location: 0, length: currentToken!.value.count))
                             if match != nil{
                                 tokensForParagraph.append(currentToken!)
                                 currentToken = nil
@@ -169,6 +160,8 @@ class MarkdownParser {
                                 continue
                             }
                         }
+
+                        continue
                     }
 
                     // Bold
@@ -244,6 +237,6 @@ class MarkdownParser {
             }
         }
 
-        return tokens
+        return resultTokens
     }
 }

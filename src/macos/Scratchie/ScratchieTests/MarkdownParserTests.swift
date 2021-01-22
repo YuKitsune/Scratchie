@@ -161,12 +161,14 @@ class MarkdownParserTests: XCTestCase {
 
         // Arrange
         let parser = MarkdownParser()
+        let normalLink = "https://github.com"
+        let imageLink = "https://media.giphy.com/media/uCLiiV2WEUBHYcYc14/giphy.gif"
         let markdown = """
                        This is a paragraph
-                       [This is a link](https://github.com) 
+                       [This is a link](\(normalLink))
                        This is also a paragraph
-                       ![This is an image](https://github.githubassets.com/images/modules/logos_page/Octocat.png) 
-                       This is a paragraph [with an inline link](https://github.com) and also with an ![inline image](https://github.githubassets.com/images/modules/logos_page/Octocat.png)
+                       ![This is an image](\(imageLink))
+                       This is a paragraph [with an inline link](\(normalLink)) and also with an ![inline image](\(imageLink))
                        """
 
         // Act
@@ -181,14 +183,14 @@ class MarkdownParserTests: XCTestCase {
             case 1, 5:
                 XCTAssertTrue(token is MarkdownLink)
                 let link = token as! MarkdownLink
-                XCTAssertEqual(link.url, "https://github.com")
+                XCTAssertEqual(link.url, normalLink)
 
             case 3, 7:
                 XCTAssertTrue(token is MarkdownImage)
                 let link = token as! MarkdownImage
-                XCTAssertEqual(link.url, "https://github.githubassets.com/images/modules/logos_page/Octocat.png")
+                XCTAssertEqual(link.url, imageLink)
             default:
-                XCTAssertFalse(token is MarkdownParagraph)
+                XCTAssertTrue(token is MarkdownParagraph)
             }
         }
     }
