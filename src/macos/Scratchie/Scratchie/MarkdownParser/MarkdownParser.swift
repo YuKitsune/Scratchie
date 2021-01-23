@@ -7,18 +7,18 @@ import Foundation
 // Todo: This needs a big refactor. Very unhappy with it...
 class MarkdownParser {
 
-    let boldRegex = try! NSRegularExpression(pattern: "(\\*{2}).*?(\\*{2})")
-
     func tokenize(_ text: String) -> [MarkdownToken] {
+
+        // Split the input into individual lines
         let lines = text.split(separator: "\n")
         var tokens = [MarkdownToken]()
 
         var currentCodeBlock: MarkdownCodeBlock?
-        lines.forEach{ line in
+        for line in lines {
 
-            // If we've hit the code block identifier,
-            //  either finish off the current code block, or start a new one
-            // Todo: Check suffix as well
+            // First check tokens which consist of multiple lines
+
+            // Code block
             if line.hasPrefix("```") {
                 if currentCodeBlock == nil {
                     currentCodeBlock = MarkdownCodeBlock(value: String(line))
@@ -27,20 +27,35 @@ class MarkdownParser {
                     currentCodeBlock = nil
                 }
 
-                return
+                continue
             }
 
             // If we're in a code block, append the current line
             if currentCodeBlock != nil {
                 currentCodeBlock?.value.append("\n\(line)")
-                return
+                continue
             }
+
+            // Quote
+            if line.hasPrefix(">") {
+                // If the last line was also a quote then we can just append this line to the quote
+                if let quote = tokens.last as? MarkdownQuote {
+                    quote.value.append("\n\(line)")
+                } else {
+                    let quoteToken = MarkdownQuote(value: String(line))
+                    tokens.append(quoteToken)
+                }
+
+                continue
+            }
+
+            // Then check for tokens which consist of one whole line
 
             // Headings
             if line.hasPrefix("#") {
                 let headingToken = MarkdownHeading(value: String(line))
                 tokens.append(headingToken)
-                return
+                continue
             }
 
             // Horizontal Rule
@@ -50,120 +65,51 @@ class MarkdownParser {
                }) {
                 let horizontalRuleToken = MarkdownHorizontalRule(value: String(line))
                 tokens.append(horizontalRuleToken)
-                return
+                continue
             }
-
-            // Quote
-            if line.hasPrefix(">") {
-
-                // If the last line was also a quote, then just add this one to it
-                if tokens.last is MarkdownQuote {
-                    tokens.last?.value.append("\n\(line)")
-                } else {
-                    let quoteToken = MarkdownQuote(value: String(line))
-                    tokens.append(quoteToken)
-                }
-
-                return
-            }
-
-            // Todo: Table
 
             // Made it this far, can only be a paragraph
-            if tokens.last is MarkdownParagraph {
-                tokens.last?.value.append("\n\(line)")
+            if let paragraph = tokens.last as? MarkdownParagraph {
+                paragraph.value.append("\n\(line)")
             } else {
                 let paragraphToken = MarkdownParagraph(value: String(line))
                 tokens.append(paragraphToken)
             }
         }
 
-        // Checked all lines, make sure there is no in-progress code-block
+        // Checked all lines, make sure there is no unfinished code-block
         if currentCodeBlock != nil {
             tokens.append(currentCodeBlock!)
             currentCodeBlock = nil
         }
 
-
-        // First pass of tokens, insert links and images
-        let imageRegex = try! NSRegularExpression(pattern: "(?<=!)(\\[.+\\])(\\(.+\\))");
-        let linkRegex = try! NSRegularExpression(pattern: "(?<!!)(\\[.+\\])(\\(.+\\))");
-        
-        // Split paragraphs into normal, bold, italic, etc
-        // Todo: clean this up...
+        // First pass complete, now we check for in-line tokens within paragraphs
         var resultTokens = [MarkdownToken]()
         for token in tokens {
+            if let paragraph = token as? MarkdownParagraph {
 
-            if token is MarkdownParagraph {
-                let paragraph = token as! MarkdownParagraph
+                // We've hit a paragraph, check for in-line tokens
                 var tokensForParagraph = [MarkdownToken]()
-
                 var lastCharacter: Character?
                 var currentToken: MarkdownToken?
                 for character in paragraph.value {
+
+                    // Update the last character once this loop re-itterates
                     defer { lastCharacter = character }
 
-                    // If we're in a token, then add and check if we've finished
-                    if (currentToken as? MarkdownParagraph?) == nil {
-                        currentToken?.value.append(character)
+                    // If we're currently working on a token that isn't a paragraph, append and check if it's finished
+                    if currentToken != nil && (currentToken as? MarkdownParagraph?) == nil {
+                        currentToken!.value.append(character)
 
-                        // Bold
-                        if character == "*" && lastCharacter == "*" {
+                        if currentToken!.isComplete() {
                             tokensForParagraph.append(currentToken!)
                             currentToken = nil
-                            continue
                         }
-
-                        // Underline
-                        if character == "_" || lastCharacter == "_"{
-                            tokensForParagraph.append(currentToken!)
-                            currentToken = nil
-                            continue
-                        }
-
-                        // Strikethrough
-                        if character == "~" || character == "~"{
-                            tokensForParagraph.append(currentToken!)
-                            currentToken = nil
-                            continue
-                        }
-
-                        // Italic
-                        if character == "*" || character == "_"{
-                            tokensForParagraph.append(currentToken!)
-                            currentToken = nil
-                            continue
-                        }
-
-                        // Todo: Combine these two
-                        // Image
-                        if currentToken is MarkdownImage {
-                            let match = imageRegex.firstMatch(
-                                    in: currentToken!.value,
-                                    options: .withoutAnchoringBounds,
-                                range: NSRange(location: 0, length: currentToken!.value.count))
-                            if match != nil{
-                                tokensForParagraph.append(currentToken!)
-                                currentToken = nil
-                                continue
-                            }
-                        }
-
-                        // Link
-                        if currentToken is MarkdownLink {
-                            let match = linkRegex.firstMatch(
-                                    in: currentToken!.value,
-                                    options: .withoutAnchoringBounds,
-                                range: NSRange(location: 0, length: currentToken!.value.count))
-                            if match != nil {
-                                tokensForParagraph.append(currentToken!)
-                                currentToken = nil
-                                continue
-                            }
-                        }
-
+                        
                         continue
                     }
+
+                    // Check for each token type
 
                     // Bold
                     if character == "*" && lastCharacter == "*" {
@@ -171,7 +117,7 @@ class MarkdownParser {
                         if currentToken != nil {
                             tokensForParagraph.append(currentToken!)
                         }
-                        currentToken = MarkdownBold(value: String("**"))
+                        currentToken = MarkdownBold(value: "**")
                         continue
                     }
 
@@ -181,17 +127,17 @@ class MarkdownParser {
                         if currentToken != nil {
                             tokensForParagraph.append(currentToken!)
                         }
-                        currentToken = MarkdownUnderline(value: String("__"))
+                        currentToken = MarkdownUnderline(value: "__")
                         continue
                     }
 
                     // Strikethrough
-                    if character == "~" || character == "~"{
+                    if character == "~" || character == "~" {
 
                         if currentToken != nil {
                             tokensForParagraph.append(currentToken!)
                         }
-                        currentToken = MarkdownStrikethrough(value: String("~~"))
+                        currentToken = MarkdownStrikethrough(value: "~~")
                         continue
                     }
 
@@ -201,7 +147,7 @@ class MarkdownParser {
                         if currentToken != nil {
                             tokensForParagraph.append(currentToken!)
                         }
-                        currentToken = MarkdownItalic(value: String("**"))
+                        currentToken = MarkdownItalic(value: String(repeating: character, count: 2))
                         continue
                     }
                     
@@ -211,20 +157,21 @@ class MarkdownParser {
                             tokensForParagraph.append(currentToken!)
                             
                             if lastCharacter == "!" {
-                                currentToken = MarkdownImage(value: String("!["))
+                                currentToken = MarkdownLink(characters: [lastCharacter!, character])
                             } else {
-                                currentToken = MarkdownLink(value: String("["))
+                                currentToken = MarkdownLink(character: character)
                             }
                             
                             continue
                         }
                     }
 
-                    // Made it here, just a normal paragraph element
+                    // Couldn't find any matching tokens prefixes, it's just a paragraph
                     if currentToken == nil {
                         currentToken = MarkdownParagraph(value: String(character))
+                        continue
                     } else {
-                        currentToken!.value.append(character)
+                        currentToken?.value.append(character)
                     }
                 }
 
@@ -234,6 +181,7 @@ class MarkdownParser {
 
                 resultTokens.append(contentsOf: tokensForParagraph);
             } else {
+                // Not a paragraph, just add it as it is
                 resultTokens.append(token)
             }
         }

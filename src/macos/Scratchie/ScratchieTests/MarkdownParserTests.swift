@@ -87,7 +87,7 @@ class MarkdownParserTests: XCTestCase {
             switch i {
             case 0:
                 if let quoteToken = token as? MarkdownQuote {
-                    XCTAssertTrue(quoteToken.isMultiline)
+                    XCTAssertTrue(quoteToken.isMultiLine())
                 } else {
                     XCTFail("First token was not a quote")
                 }
@@ -96,7 +96,7 @@ class MarkdownParserTests: XCTestCase {
 
             case 2:
                 if let quoteToken = token as? MarkdownQuote {
-                    XCTAssertFalse(quoteToken.isMultiline)
+                    XCTAssertFalse(quoteToken.isMultiLine())
                 } else {
                     XCTFail("2 nd token was not a quote")
                 }
@@ -126,7 +126,7 @@ class MarkdownParserTests: XCTestCase {
 
         let codeBlockToken = tokens[1] as! MarkdownCodeBlock
         XCTAssertNotNil(codeBlockToken)
-        XCTAssertTrue(codeBlockToken.isMultiline)
+        XCTAssertTrue(codeBlockToken.isMultiLine())
     }
 
     func testParagraphTokenizes() {
@@ -180,15 +180,19 @@ class MarkdownParserTests: XCTestCase {
             let token = tokens[i]
 
             switch i {
+
             case 1, 5:
                 XCTAssertTrue(token is MarkdownLink)
                 let link = token as! MarkdownLink
                 XCTAssertEqual(link.url, normalLink)
+                XCTAssertFalse(link.isImage)
 
             case 3, 7:
-                XCTAssertTrue(token is MarkdownImage)
-                let link = token as! MarkdownImage
+                XCTAssertTrue(token is MarkdownLink)
+                let link = token as! MarkdownLink
                 XCTAssertEqual(link.url, imageLink)
+                XCTAssertTrue(link.isImage)
+                
             default:
                 XCTAssertTrue(token is MarkdownParagraph)
             }
