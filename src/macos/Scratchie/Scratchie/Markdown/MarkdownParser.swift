@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import AppKit
 
 // Todo: This needs a big refactor. Very unhappy with it...
 class MarkdownParser {
@@ -132,7 +133,7 @@ class MarkdownParser {
                     }
 
                     // Strikethrough
-                    if character == "~" || character == "~" {
+                    if character == "~" || lastCharacter == "~" {
 
                         if currentToken != nil {
                             tokensForParagraph.append(currentToken!)
@@ -187,5 +188,90 @@ class MarkdownParser {
         }
 
         return resultTokens
+    }
+    
+    func parseTokens(_ tokens: [MarkdownToken]) -> NSMutableAttributedString {
+        let result = NSMutableAttributedString()
+        let defaultFont = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
+        
+        var currentIndex = 0
+        for token in tokens {
+            let length = token.value.count
+            defer {currentIndex += length}
+            let currentString = NSMutableAttributedString(string: token.value)
+            switch token {
+            
+            // Heading
+            case let headingToken as MarkdownHeading:
+                var font: NSFont
+                var style: NSFont.TextStyle?
+                if headingToken.level == 1 {
+                    style = .largeTitle
+                } else if headingToken.level == 2 {
+                    style = .subheadline
+                } else if headingToken.level == 3 {
+                    style = .title1
+                } else if headingToken.level == 4 {
+                    style = .title2
+                } else if headingToken.level >= 5 {
+                    style = .title3
+                }
+                
+                if style != nil {
+                    font = NSFont.preferredFont(forTextStyle: style!)
+                } else {
+                    font = defaultFont
+                }
+                
+                currentString.addAttribute(.font, value: font, range: NSRange(location: 0, length: length))
+                break;
+                
+            case _ as MarkdownHorizontalRule:
+                // Todo
+                break;
+                
+            case _ as MarkdownQuote:
+                // Todo
+                break;
+                
+            case _ as MarkdownCodeBlock:
+                // Todo
+                break;
+                
+            case _ as MarkdownBold:
+                currentString.addAttribute(.font, value: NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .bold), range: NSRange(location: 0, length: currentString.length));
+                break;
+                
+            case _ as MarkdownItalic:
+                currentString.addAttribute(.obliqueness, value: 5, range: NSRange(location: 0, length: currentString.length));
+                break;
+                
+            case _ as MarkdownUnderline:
+                currentString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: currentString.length));
+                break
+                
+            case _ as MarkdownStrikethrough:
+                currentString.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: currentString.length));
+                break;
+                
+            case let linkToken as MarkdownLink:
+                currentString.addAttribute(.link, value: linkToken.url, range: NSRange(location: 0, length: currentString.length));
+                if linkToken.isImage {
+                    let imageAttachment = NSTextAttachment()
+                    let imageContent = try! Data(contentsOf: URL(string: linkToken.url)!)
+                    imageAttachment.image = NSImage(data: imageContent)
+                    currentString.append(NSAttributedString(attachment: imageAttachment))
+                }
+                break;
+                
+            default:
+                currentString.addAttribute(.font, value: defaultFont, range: NSRange(location: 0, length: currentString.length))
+                break;
+            }
+            
+            result.append(currentString)
+        }
+        
+        return result
     }
 }

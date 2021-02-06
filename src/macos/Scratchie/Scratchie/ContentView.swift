@@ -26,7 +26,7 @@ struct ContentView: View {
                 .aspectRatio(1, contentMode: .fit) // This prevents the button from taking all available horizontal space
             }
             .padding(2)
-            ScratchpadEditor(scratchpad: userData.scratchpad)
+            ScratchpadEditorView(/*scratchpad: userData.scratchpad*/)
         }
     }
     
