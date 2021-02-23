@@ -13,17 +13,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var popover: NSPopover?
     var statusBarItem: NSStatusItem?
     var toggleVisibilityHotKey: HotKey?
+    var scratchpadProvider: ScratchpadProvider?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
             
+        self.scratchpadProvider = iCloudScratchpadProvider(true)
+        
         // Create the show/hide hotkey
         toggleVisibilityHotKey = HotKey(key: .r, modifiers: [.command, .option])
         toggleVisibilityHotKey!.keyDownHandler = togglePopover
         
         // Create the Content View
         let size = NSSize(width: 400, height: 500)
-        let contentView = ContentView()
-            .environmentObject(UserData())
+        let contentView = ContentView(self.scratchpadProvider!)
             .frame(width: size.width, height: size.height, alignment: .center)
 
         // Set the SwiftUI's ContentView to the Popover's ContentViewController

@@ -12,11 +12,22 @@ import HighlightedTextEditor
 // Todo: Remove background
 
 struct ScratchpadEditor: View {
-    @State var scratchpad: Scratchpad
+    private var provider: ScratchpadProvider
+    @State var text: String {
+        didSet {
+            _ = provider.setScratchpadContent(text)
+        }
+    }
+        
+    init (_ provider: ScratchpadProvider) {
+        self.provider = provider
+        _text = State<String>.init(initialValue: self.provider.getScratchpadContent())
+    }
+    
     var body: some View {
         VStack {
             HighlightedTextEditor(
-                text: $scratchpad.content,
+                text: $text,
                 highlightRules: .markdown)
                 .defaultFont(.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .thin))
                 .drawsBackground(false)
@@ -28,7 +39,7 @@ struct ScratchpadEditor: View {
 struct ScratchpadEditor_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ScratchpadEditor(scratchpad: UserData().scratchpad)
+            ScratchpadEditor(UserDefaultsScratchpadProvider())
         }
     }
 }
