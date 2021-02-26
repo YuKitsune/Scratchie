@@ -15,8 +15,15 @@ class UserDefaultsScratchpadProvider : ScratchpadProvider {
         userDefaults.string(forKey: key) ?? ""
     }
     
-    func setScratchpadContent(_ content: String) -> Bool {
+    func setScratchpadContent(_ content: String) {
         userDefaults.set(content, forKey: key)
-        return true
+    }
+    
+    func onExternalChange(do callback: @escaping () -> Void) {
+        // Do nothing, not aplicable
+    }
+    
+    func flush() {
+        // Do nothing, not aplicable
     }
 }

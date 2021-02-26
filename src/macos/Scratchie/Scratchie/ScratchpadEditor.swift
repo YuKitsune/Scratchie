@@ -35,6 +35,11 @@ struct ScratchpadEditor: View {
     func onTextChanged(to value: String) {
         _ = self.provider.setScratchpadContent(value)
     }
+    
+    func onExternalChange(do callback: @escaping () -> Void) {
+        // Todo: This might trigger onTextChanged, might need some kind of semaphore
+        text = provider.getScratchpadContent()
+    }
 }
 
 struct ScratchpadEditor_Previews: PreviewProvider {

@@ -9,5 +9,7 @@ import Foundation
 
 protocol ScratchpadProvider {
     func getScratchpadContent() -> String
-    func setScratchpadContent(_ content: String) -> Bool
+    func setScratchpadContent(_ content: String)
+    func onExternalChange(do callback: @escaping () -> Void)
+    func flush()
 }

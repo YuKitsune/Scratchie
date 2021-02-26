@@ -8,30 +8,36 @@
 import Foundation
 
 class iCloudScratchpadProvider : ScratchpadProvider {
+    
     var key = "scratchpad"
     var keyStore = NSUbiquitousKeyValueStore()
-    var synchronizeOnSet = false
+    private var onExternalChangeCallback: (() -> Void)?
     
-    init(_ synchronizeOnSet: Bool = false) {
-        self.synchronizeOnSet = synchronizeOnSet
+    init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onUbiquitousKeyValueStoreDidChangeExternally(notification:)),
+            name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
+            object: NSUbiquitousKeyValueStore.default)
     }
     
     func getScratchpadContent() -> String {
         keyStore.string(forKey: key) ?? ""
     }
     
-    func setScratchpadContent(_ content: String) -> Bool {
-        keyStore.set(content, forKey: key)
-        
-        var didSync = false
-        if self.synchronizeOnSet {
-            didSync = keyStore.synchronize()
-        }
-        
-        return didSync
+    func setScratchpadContent(_ content: String) {
+        return keyStore.set(content, forKey: key)
     }
     
-    func synchronize() -> Bool {
+    func onExternalChange(do callback: @escaping () -> Void) {
+        self.onExternalChangeCallback = callback
+    }
+    
+    func flush() {
         keyStore.synchronize()
+    }
+    
+    @objc private func onUbiquitousKeyValueStoreDidChangeExternally(notification: Notification) {
+        onExternalChangeCallback?()
     }
 }
