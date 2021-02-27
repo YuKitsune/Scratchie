@@ -25,7 +25,7 @@ class UbiquitousScratchpadProvider : ScratchpadProvider {
     }
     
     func setScratchpadContent(_ content: String) {
-        return NSUbiquitousKeyValueStore.default.set(content, forKey: key)
+        NSUbiquitousKeyValueStore.default.set(content, forKey: key)
     }
     
     func onExternalChange(do callback: @escaping () -> Void) {
@@ -36,7 +36,8 @@ class UbiquitousScratchpadProvider : ScratchpadProvider {
         NSUbiquitousKeyValueStore.default.synchronize()
     }
     
-    @objc private func onUbiquitousKeyValueStoreDidChangeExternally(notification: Notification) {
+    // Bug: This isn't being invoked...
+    @objc func onUbiquitousKeyValueStoreDidChangeExternally(notification: Notification) {
         onExternalChangeCallback?()
     }
 }
