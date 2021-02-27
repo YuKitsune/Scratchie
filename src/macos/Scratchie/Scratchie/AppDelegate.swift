@@ -42,6 +42,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusBarItem?.button?.action = #selector(AppDelegate.togglePopover)
     }
     
+    func applicationWillTerminate(_ notification: Notification) {
+        self.scratchpadProvider?.flush()
+    }
+    
     @objc func togglePopover() {
         if let popover = self.popover {
             if popover.isShown {
