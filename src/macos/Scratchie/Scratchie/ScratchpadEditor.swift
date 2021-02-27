@@ -18,6 +18,7 @@ struct ScratchpadEditor: View {
     init (_ provider: ScratchpadProvider) {
         self.provider = provider
         _text = State<String>.init(initialValue: self.provider.getScratchpadContent())
+        self.provider.onExternalChange(do: onExternalChange)
     }
     
     var body: some View {
@@ -32,12 +33,11 @@ struct ScratchpadEditor: View {
     }
     
     // Todo: Buffer the value so it's not constantly saving
-    func onTextChanged(to value: String) {
-        _ = self.provider.setScratchpadContent(value)
+    private func onTextChanged(to value: String) {
+        self.provider.setScratchpadContent(value)
     }
     
-    func onExternalChange(do callback: @escaping () -> Void) {
-        // Todo: This might trigger onTextChanged, might need some kind of semaphore
+    private func onExternalChange() {
         text = provider.getScratchpadContent()
     }
 }
