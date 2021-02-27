@@ -16,8 +16,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var scratchpadProvider: ScratchpadProvider?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-            
-        self.scratchpadProvider = iCloudScratchpadProvider()
+                    
+        self.scratchpadProvider = UbiquitousScratchpadProvider()
         
         // Create the show/hide hotkey
         toggleVisibilityHotKey = HotKey(key: .r, modifiers: [.command, .option])
