@@ -15,7 +15,7 @@ class UbiquitousScratchpadProvider : ScratchpadProvider {
     init() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(onUbiquitousKeyValueStoreDidChangeExternally),
+            selector: #selector(onUbiquitousKeyValueStoreDidChangeExternally(_:)),
             name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
             object: NSUbiquitousKeyValueStore.default)
     }
@@ -37,7 +37,7 @@ class UbiquitousScratchpadProvider : ScratchpadProvider {
     }
     
     // Bug: This isn't being invoked...
-    @objc func onUbiquitousKeyValueStoreDidChangeExternally(notification: Notification) {
+    @objc func onUbiquitousKeyValueStoreDidChangeExternally(_ notification: Notification) {
         onExternalChangeCallback?()
     }
 }

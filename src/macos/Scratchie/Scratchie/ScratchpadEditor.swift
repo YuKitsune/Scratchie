@@ -38,6 +38,9 @@ struct ScratchpadEditor: View {
     }
     
     private func onExternalChange() {
+        
+        // Todo: If there are changes here too, who takes priority?
+        //  Might have to prompt for accept/reject incoming changes with a preview and diff
         text = provider.getScratchpadContent()
     }
 }
