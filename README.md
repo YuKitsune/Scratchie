@@ -15,19 +15,19 @@
 
 # Roadmap
 - ~~macOS Menu Bar Application~~
-  - ~~Invoked via key combo~~
-  - Markdown support (Partially working, implementation can be improved)
-  - Syntax highlighting
-  - Diff tool
-  - Clipboard/Pasteboard integration
-  - Manage multiple scratchpads
-  - Export to various formats and programs
-    - Google Docs and other equivalents 
-    - Markdown
-    - GitHub Issue/PR
-    - API for custom exporting?
-- Windows/Linux implementation (?)
-- Web API for cloud sync
+- ~~Invoked via key combo~~
+- Markdown support (Partially working, implementation can be improved)
+- Syntax highlighting
+- ~~iCloud sync~~
+- Diff tool
+- Clipboard/Pasteboard integration
+- Multiple scratchpads
+- Export to various formats and programs
+  - Google Docs and other equivalents 
+  - Markdown
+  - GitHub Issue/PR
+  - API for custom exporting?
+- LinqPad like support
 
 # Contributing
 
