@@ -11,6 +11,7 @@
 		BC8A50CA257F7BF100EF14EC /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BC8A50C9257F7BF100EF14EC /* HighlightedTextEditor */; };
 		BCAFB068256E690800BEBF5A /* ScratchpadEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */; };
 		BCB8132225984A2A00D44B35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB8132125984A2A00D44B35 /* AppDelegate.swift */; };
+		BCC83EB025F0EAA900315329 /* ScratchpadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC83EAF25F0EAA900315329 /* ScratchpadViewModel.swift */; };
 		BCCA187825E3A8B300AAC452 /* ScratchpadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCA187725E3A8B300AAC452 /* ScratchpadProvider.swift */; };
 		BCCA187E25E3A91300AAC452 /* UbiquitousScratchpadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCA187D25E3A91300AAC452 /* UbiquitousScratchpadProvider.swift */; };
 		BCCA188625E3AA7400AAC452 /* UserDefaultsScratchpadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCA188525E3AA7400AAC452 /* UserDefaultsScratchpadProvider.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchpadEditor.swift; sourceTree = "<group>"; };
 		BCB8132125984A2A00D44B35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BCC83EAF25F0EAA900315329 /* ScratchpadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchpadViewModel.swift; sourceTree = "<group>"; };
 		BCCA187725E3A8B300AAC452 /* ScratchpadProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchpadProvider.swift; sourceTree = "<group>"; };
 		BCCA187D25E3A91300AAC452 /* UbiquitousScratchpadProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbiquitousScratchpadProvider.swift; sourceTree = "<group>"; };
 		BCCA188525E3AA7400AAC452 /* UserDefaultsScratchpadProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsScratchpadProvider.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				BCD2379E256E5FD00087ACC5 /* Preview Content */,
 				BCAFB067256E690800BEBF5A /* ScratchpadEditor.swift */,
 				BCB8132125984A2A00D44B35 /* AppDelegate.swift */,
+				BCC83EAF25F0EAA900315329 /* ScratchpadViewModel.swift */,
 			);
 			path = Scratchie;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				BCCA188625E3AA7400AAC452 /* UserDefaultsScratchpadProvider.swift in Sources */,
 				BCAFB068256E690800BEBF5A /* ScratchpadEditor.swift in Sources */,
 				BCD2379B256E5FCE0087ACC5 /* ContentView.swift in Sources */,
+				BCC83EB025F0EAA900315329 /* ScratchpadViewModel.swift in Sources */,
 				BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */,
 				BCCA187825E3A8B300AAC452 /* ScratchpadProvider.swift in Sources */,
 			);

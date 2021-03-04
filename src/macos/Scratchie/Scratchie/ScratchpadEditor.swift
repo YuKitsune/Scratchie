@@ -12,36 +12,21 @@ import HighlightedTextEditor
 // Todo: Remove background
 
 struct ScratchpadEditor: View {
-    private var provider: ScratchpadProvider
-    @State var text: String
+    @ObservedObject var viewModel: ScratchpadViewModel
         
-    init (_ provider: ScratchpadProvider) {
-        self.provider = provider
-        _text = State<String>.init(initialValue: self.provider.getScratchpadContent())
-        self.provider.onExternalChange(do: onExternalChange)
+    init(_ provider: ScratchpadProvider) {
+        self.viewModel = ScratchpadViewModel(provider)
     }
     
     var body: some View {
         VStack {
             HighlightedTextEditor(
-                text: $text.onChange(onTextChanged),
+                text: $viewModel.text,
                 highlightRules: .markdown)
                 .defaultFont(.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .thin))
                 .drawsBackground(false)
                 .backgroundColor(.clear)
         }
-    }
-    
-    // Todo: Buffer the value so it's not constantly saving
-    private func onTextChanged(to value: String) {
-        self.provider.setScratchpadContent(value)
-    }
-    
-    private func onExternalChange() {
-        
-        // Todo: If there are changes here too, who takes priority?
-        //  Might have to prompt for accept/reject incoming changes with a preview and diff
-        text = provider.getScratchpadContent()
     }
 }
 
@@ -50,17 +35,5 @@ struct ScratchpadEditor_Previews: PreviewProvider {
         Group {
             ScratchpadEditor(UserDefaultsScratchpadProvider())
         }
-    }
-}
-
-extension Binding {
-    func onChange(_ handler: @escaping (Value) -> Void) -> Binding<Value> {
-        Binding(
-            get: { self.wrappedValue },
-            set: { newValue in
-                self.wrappedValue = newValue
-                handler(newValue)
-            }
-        )
     }
 }
