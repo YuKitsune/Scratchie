@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var userData: UserData
+    
+    private var provider: ScratchpadProvider
+    
+    init(_ provider: ScratchpadProvider) {
+        self.provider = provider
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -26,7 +32,7 @@ struct ContentView: View {
                 .aspectRatio(1, contentMode: .fit) // This prevents the button from taking all available horizontal space
             }
             .padding(2)
-            ScratchpadEditor(scratchpad: userData.scratchpad)
+            ScratchpadEditor(self.provider)
         }
     }
     
@@ -45,7 +51,6 @@ struct ContentView: View {
     
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(UserData())
+        ContentView(UserDefaultsScratchpadProvider())
     }
 }
