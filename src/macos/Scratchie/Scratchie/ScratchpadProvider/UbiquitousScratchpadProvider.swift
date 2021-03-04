@@ -35,8 +35,7 @@ class UbiquitousScratchpadProvider : ScratchpadProvider {
     func flush() {
         NSUbiquitousKeyValueStore.default.synchronize()
     }
-    
-    // Bug: This isn't being invoked...
+
     @objc func onUbiquitousKeyValueStoreDidChangeExternally(_ notification: Notification) {
         onExternalChangeCallback?()
     }
