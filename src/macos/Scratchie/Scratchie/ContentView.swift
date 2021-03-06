@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     
-    private var provider: ScratchpadProvider
+    @ObservedObject var viewModel: ScratchpadViewModel
+    var provider: ScratchpadProvider
     
     init(_ provider: ScratchpadProvider) {
         self.provider = provider
+        self.viewModel = ScratchpadViewModel(self.provider)
     }
 
     var body: some View {
@@ -32,7 +34,11 @@ struct ContentView: View {
                 .aspectRatio(1, contentMode: .fit) // This prevents the button from taking all available horizontal space
             }
             .padding(2)
-            ScratchpadEditor(self.provider)
+            ScratchpadEditor(
+                text: $viewModel.text,
+                parser: BindableParser(
+                    inner: NoOpParser(),
+                    text: $viewModel.text))
         }
     }
     
