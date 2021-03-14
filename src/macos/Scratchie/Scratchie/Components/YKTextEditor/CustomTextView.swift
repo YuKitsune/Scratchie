@@ -9,8 +9,7 @@ import Foundation
 import AppKit
 
 public final class CustomTextView: NSView {
-    
-    private var font: NSFont = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
+    private var font: NSFont?
     
     weak var delegate: NSTextViewDelegate?
     
@@ -28,17 +27,34 @@ public final class CustomTextView: NSView {
     
     var selectedRanges: [NSValue] = [] {
         didSet {
-            guard selectedRanges.count > 0 else {
-                return
-            }
-            
+            guard selectedRanges.count > 0 else { return }
             textView.selectedRanges = selectedRanges
         }
+    }
+        
+    var allowsDocumentBackgroundColorChange: Bool {
+        get { textView.allowsDocumentBackgroundColorChange }
+        set { textView.allowsDocumentBackgroundColorChange = newValue }
+    }
+    
+    var backgroundColor: NSColor {
+        get { textView.backgroundColor }
+        set { textView.backgroundColor = newValue }
+    }
+    
+    var drawsBackground: Bool {
+        get { textView.drawsBackground }
+        set { textView.drawsBackground = newValue }
+    }
+    
+    var insertionPointColor: NSColor? {
+        get { textView.insertionPointColor }
+        set { textView.insertionPointColor = newValue ?? textView.insertionPointColor }
     }
     
     private lazy var scrollView: NSScrollView = {
         let scrollView = NSScrollView()
-        scrollView.drawsBackground = true
+        scrollView.drawsBackground = false
         scrollView.borderType = .noBorder
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalRuler = false
@@ -51,7 +67,7 @@ public final class CustomTextView: NSView {
     private lazy var textView: NSTextView = {
         let contentSize = scrollView.contentSize
         let textStorage = NSTextStorage()
-        
+
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
 
@@ -61,26 +77,26 @@ public final class CustomTextView: NSView {
             width: contentSize.width,
             height: CGFloat.greatestFiniteMagnitude
         )
-
+        
         layoutManager.addTextContainer(textContainer)
-
-        let textView                     = NSTextView(frame: .zero, textContainer: textContainer)
-        textView.autoresizingMask        = .width
-        textView.backgroundColor         = .clear
-        textView.delegate                = self.delegate
-        textView.drawsBackground         = true
-        textView.font                    = self.font
+        
+        let textView = NSTextView(frame: .zero, textContainer: textContainer)
+        textView.autoresizingMask = .width
+        textView.backgroundColor = .clear
+        textView.delegate = self.delegate
+        textView.font = self.font
+        textView.isEditable = true
         textView.isHorizontallyResizable = false
-        textView.isVerticallyResizable   = true
-        textView.maxSize                 = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
-        textView.minSize                 = NSSize(width: 0, height: contentSize.height)
-        textView.textColor               = NSColor.labelColor
+        textView.isVerticallyResizable = true
+        textView.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        textView.minSize = NSSize(width: 0, height: contentSize.height)
+        textView.textColor = NSColor.labelColor
         
         return textView
     }()
-    
-    // MARK: - Init
-    init(text: String) {
+
+    init(text: String, font: NSFont?) {
+        self.font       = font
         self.text       = text
         self.attributedText = NSMutableAttributedString()
         
@@ -91,7 +107,7 @@ public final class CustomTextView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Life cycle
+    // MARK: - Lifecycle
     
     public override func viewWillDraw() {
         super.viewWillDraw()
@@ -112,7 +128,7 @@ public final class CustomTextView: NSView {
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
-
+    
     func setupTextView() {
         scrollView.documentView = textView
     }

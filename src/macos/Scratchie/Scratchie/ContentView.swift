@@ -34,11 +34,11 @@ struct ContentView: View {
                 .aspectRatio(1, contentMode: .fit) // This prevents the button from taking all available horizontal space
             }
             .padding(2)
-            ScratchpadEditor(
+            YKTextEditor(
                 text: $viewModel.text,
-                parser: BindableParser(
-                    inner: NoOpParser(),
-                    text: $viewModel.text))
+                textFormatter: MonospaceEverythingParser())
+                .backgroundColor(NSColor.clear)
+                .drawsBackground(true)
         }
     }
     
