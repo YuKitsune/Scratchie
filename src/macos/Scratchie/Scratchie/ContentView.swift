@@ -37,8 +37,8 @@ struct ContentView: View {
             SmartTextEditor(
                 text: $viewModel.text,
                 textFormatter: MonospaceEverythingParser())
-                .backgroundColor(NSColor.clear)
                 .drawsBackground(true)
+                .backgroundColor(NSColor.clear)
         }
     }
     

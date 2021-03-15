@@ -88,57 +88,17 @@ public struct SmartTextEditor: NSViewRepresentable {
     }
 }
 
+// MARK: Extensions
 extension SmartTextEditor {
-    public func allowsDocumentBackgroundColorChange(_ allowsChange: Bool) -> Self {
-        var editor = self
-        editor.allowsDocumentBackgroundColorChange = allowsChange
-        return editor
-    }
-    
     public func backgroundColor(_ color: NSColor) -> Self {
         var editor = self
         editor.backgroundColor = color
         return editor
     }
     
-    // Overwritten by font attributes in your HighlightRules
-    public func defaultColor(_ color: NSColor) -> Self {
-        var editor = self
-        editor.color = color
-        return editor
-    }
-    
-    // Overwritten by font attributes in your HighlightRules
-    public func defaultFont(_ font: NSFont) -> Self {
-        var editor = self
-        editor.font = font
-        return editor
-    }
-    
     public func drawsBackground(_ shouldDraw: Bool) -> Self {
         var editor = self
         editor.drawsBackground = shouldDraw
-        return editor
-    }
-    
-    public func insertionPointColor(_ color: NSColor) -> Self {
-        var editor = self
-        editor.insertionPointColor = color
-        return editor
-    }
-    
-    public func onSelectionChange(_ callback: @escaping ([NSRange]) -> Void) -> Self {
-        var editor = self
-        editor.didChangeSelection = callback
-        return editor
-    }
-    
-    public func onSelectionChange(_ callback: @escaping (NSRange) -> Void) -> Self {
-        var editor = self
-        editor.didChangeSelection = { ranges in
-            guard let range = ranges.first else { return }
-            callback(range)
-        }
         return editor
     }
 }
