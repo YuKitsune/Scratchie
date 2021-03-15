@@ -25,6 +25,19 @@
 		BCD237A0256E5FD00087ACC5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCD2379F256E5FD00087ACC5 /* Preview Assets.xcassets */; };
 		BCD237AC256E5FD00087ACC5 /* ScratchieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD237AB256E5FD00087ACC5 /* ScratchieTests.swift */; };
 		BCD237B7256E5FD00087ACC5 /* ScratchieUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD237B6256E5FD00087ACC5 /* ScratchieUITests.swift */; };
+		BCFF8FD925FF667B0015BE27 /* MarkdownTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FCC25FF667B0015BE27 /* MarkdownTokenizer.swift */; };
+		BCFF8FDA25FF667B0015BE27 /* MarkdownLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FCE25FF667B0015BE27 /* MarkdownLink.swift */; };
+		BCFF8FDB25FF667B0015BE27 /* MarkdownQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FCF25FF667B0015BE27 /* MarkdownQuote.swift */; };
+		BCFF8FDC25FF667B0015BE27 /* MarkdownParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD025FF667B0015BE27 /* MarkdownParagraph.swift */; };
+		BCFF8FDD25FF667B0015BE27 /* MarkdownUnderline.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD125FF667B0015BE27 /* MarkdownUnderline.swift */; };
+		BCFF8FDE25FF667B0015BE27 /* MarkdownCodeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD225FF667B0015BE27 /* MarkdownCodeBlock.swift */; };
+		BCFF8FDF25FF667B0015BE27 /* MarkdownHorizontalRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD325FF667B0015BE27 /* MarkdownHorizontalRule.swift */; };
+		BCFF8FE025FF667B0015BE27 /* MarkdownToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD425FF667B0015BE27 /* MarkdownToken.swift */; };
+		BCFF8FE125FF667B0015BE27 /* MarkdownStrikethrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD525FF667B0015BE27 /* MarkdownStrikethrough.swift */; };
+		BCFF8FE225FF667B0015BE27 /* MarkdownBold.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD625FF667B0015BE27 /* MarkdownBold.swift */; };
+		BCFF8FE325FF667B0015BE27 /* MarkdownHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD725FF667B0015BE27 /* MarkdownHeading.swift */; };
+		BCFF8FE425FF667B0015BE27 /* MarkdownItalic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD825FF667B0015BE27 /* MarkdownItalic.swift */; };
+		BCFF8FE925FF668B0015BE27 /* MarkdownTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FE825FF668B0015BE27 /* MarkdownTokenizerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +82,19 @@
 		BCD237B2256E5FD00087ACC5 /* ScratchieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScratchieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCD237B6256E5FD00087ACC5 /* ScratchieUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchieUITests.swift; sourceTree = "<group>"; };
 		BCD237B8256E5FD00087ACC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCFF8FCC25FF667B0015BE27 /* MarkdownTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTokenizer.swift; sourceTree = "<group>"; };
+		BCFF8FCE25FF667B0015BE27 /* MarkdownLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownLink.swift; sourceTree = "<group>"; };
+		BCFF8FCF25FF667B0015BE27 /* MarkdownQuote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownQuote.swift; sourceTree = "<group>"; };
+		BCFF8FD025FF667B0015BE27 /* MarkdownParagraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownParagraph.swift; sourceTree = "<group>"; };
+		BCFF8FD125FF667B0015BE27 /* MarkdownUnderline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownUnderline.swift; sourceTree = "<group>"; };
+		BCFF8FD225FF667B0015BE27 /* MarkdownCodeBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownCodeBlock.swift; sourceTree = "<group>"; };
+		BCFF8FD325FF667B0015BE27 /* MarkdownHorizontalRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownHorizontalRule.swift; sourceTree = "<group>"; };
+		BCFF8FD425FF667B0015BE27 /* MarkdownToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownToken.swift; sourceTree = "<group>"; };
+		BCFF8FD525FF667B0015BE27 /* MarkdownStrikethrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownStrikethrough.swift; sourceTree = "<group>"; };
+		BCFF8FD625FF667B0015BE27 /* MarkdownBold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownBold.swift; sourceTree = "<group>"; };
+		BCFF8FD725FF667B0015BE27 /* MarkdownHeading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownHeading.swift; sourceTree = "<group>"; };
+		BCFF8FD825FF667B0015BE27 /* MarkdownItalic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownItalic.swift; sourceTree = "<group>"; };
+		BCFF8FE825FF668B0015BE27 /* MarkdownTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTokenizerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +184,7 @@
 		BCD23797256E5FCE0087ACC5 /* Scratchie */ = {
 			isa = PBXGroup;
 			children = (
+				BCFF8FCB25FF667B0015BE27 /* Markdown */,
 				BC60791E25F31B4100E96304 /* Components */,
 				BC60791025F313B500E96304 /* Formatters */,
 				BCCA187C25E3A8FE00AAC452 /* ScratchpadProvider */,
@@ -184,6 +211,7 @@
 		BCD237AA256E5FD00087ACC5 /* ScratchieTests */ = {
 			isa = PBXGroup;
 			children = (
+				BCFF8FE825FF668B0015BE27 /* MarkdownTokenizerTests.swift */,
 				BCD237AB256E5FD00087ACC5 /* ScratchieTests.swift */,
 				BCD237AD256E5FD00087ACC5 /* Info.plist */,
 			);
@@ -197,6 +225,33 @@
 				BCD237B8256E5FD00087ACC5 /* Info.plist */,
 			);
 			path = ScratchieUITests;
+			sourceTree = "<group>";
+		};
+		BCFF8FCB25FF667B0015BE27 /* Markdown */ = {
+			isa = PBXGroup;
+			children = (
+				BCFF8FCC25FF667B0015BE27 /* MarkdownTokenizer.swift */,
+				BCFF8FCD25FF667B0015BE27 /* Tokens */,
+			);
+			path = Markdown;
+			sourceTree = "<group>";
+		};
+		BCFF8FCD25FF667B0015BE27 /* Tokens */ = {
+			isa = PBXGroup;
+			children = (
+				BCFF8FCE25FF667B0015BE27 /* MarkdownLink.swift */,
+				BCFF8FCF25FF667B0015BE27 /* MarkdownQuote.swift */,
+				BCFF8FD025FF667B0015BE27 /* MarkdownParagraph.swift */,
+				BCFF8FD125FF667B0015BE27 /* MarkdownUnderline.swift */,
+				BCFF8FD225FF667B0015BE27 /* MarkdownCodeBlock.swift */,
+				BCFF8FD325FF667B0015BE27 /* MarkdownHorizontalRule.swift */,
+				BCFF8FD425FF667B0015BE27 /* MarkdownToken.swift */,
+				BCFF8FD525FF667B0015BE27 /* MarkdownStrikethrough.swift */,
+				BCFF8FD625FF667B0015BE27 /* MarkdownBold.swift */,
+				BCFF8FD725FF667B0015BE27 /* MarkdownHeading.swift */,
+				BCFF8FD825FF667B0015BE27 /* MarkdownItalic.swift */,
+			);
+			path = Tokens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +389,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCFF8FE225FF667B0015BE27 /* MarkdownBold.swift in Sources */,
+				BCFF8FD925FF667B0015BE27 /* MarkdownTokenizer.swift in Sources */,
+				BCFF8FDE25FF667B0015BE27 /* MarkdownCodeBlock.swift in Sources */,
+				BCFF8FE325FF667B0015BE27 /* MarkdownHeading.swift in Sources */,
+				BCFF8FDD25FF667B0015BE27 /* MarkdownUnderline.swift in Sources */,
 				BC4A8B7625FDE766009C1A8D /* MonospaceFormatter.swift in Sources */,
 				BCB8132225984A2A00D44B35 /* AppDelegate.swift in Sources */,
 				BCCA187E25E3A91300AAC452 /* UbiquitousScratchpadProvider.swift in Sources */,
@@ -341,12 +401,19 @@
 				BC60792E25F31D7400E96304 /* CustomTextView.swift in Sources */,
 				BC4A8B4625FDD819009C1A8D /* TextFormatter.swift in Sources */,
 				BCCA188625E3AA7400AAC452 /* UserDefaultsScratchpadProvider.swift in Sources */,
+				BCFF8FE425FF667B0015BE27 /* MarkdownItalic.swift in Sources */,
 				BCD2379B256E5FCE0087ACC5 /* ContentView.swift in Sources */,
 				BCC83EB025F0EAA900315329 /* ScratchpadViewModel.swift in Sources */,
 				BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */,
 				BC4A8B4025FDD797009C1A8D /* SmartTextEditor.swift in Sources */,
+				BCFF8FDA25FF667B0015BE27 /* MarkdownLink.swift in Sources */,
 				BC60792025F31BA000E96304 /* NoOpFormatter.swift in Sources */,
+				BCFF8FDF25FF667B0015BE27 /* MarkdownHorizontalRule.swift in Sources */,
 				BCCA187825E3A8B300AAC452 /* ScratchpadProvider.swift in Sources */,
+				BCFF8FDB25FF667B0015BE27 /* MarkdownQuote.swift in Sources */,
+				BCFF8FDC25FF667B0015BE27 /* MarkdownParagraph.swift in Sources */,
+				BCFF8FE125FF667B0015BE27 /* MarkdownStrikethrough.swift in Sources */,
+				BCFF8FE025FF667B0015BE27 /* MarkdownToken.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCFF8FE925FF668B0015BE27 /* MarkdownTokenizerTests.swift in Sources */,
 				BCD237AC256E5FD00087ACC5 /* ScratchieTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,8 +620,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8ZS9898473;
 				INFOPLIST_FILE = ScratchieTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,8 +643,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8ZS9898473;
 				INFOPLIST_FILE = ScratchieTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
