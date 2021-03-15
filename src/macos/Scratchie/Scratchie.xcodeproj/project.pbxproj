@@ -97,7 +97,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC4A8B4425FDD79D009C1A8D /* YKTextEditor */ = {
+		BC4A8B4425FDD79D009C1A8D /* SmartTextEditor */ = {
 			isa = PBXGroup;
 			children = (
 				BC4A8B3F25FDD797009C1A8D /* SmartTextEditor.swift */,
@@ -105,7 +105,7 @@
 				BC4A8B4525FDD819009C1A8D /* TextFormatter.swift */,
 				BC4A8B4A25FDD987009C1A8D /* Coordinator.swift */,
 			);
-			path = YKTextEditor;
+			path = SmartTextEditor;
 			sourceTree = "<group>";
 		};
 		BC60791025F313B500E96304 /* Formatters */ = {
@@ -120,7 +120,7 @@
 		BC60791E25F31B4100E96304 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BC4A8B4425FDD79D009C1A8D /* YKTextEditor */,
+				BC4A8B4425FDD79D009C1A8D /* SmartTextEditor */,
 			);
 			path = Components;
 			sourceTree = "<group>";
