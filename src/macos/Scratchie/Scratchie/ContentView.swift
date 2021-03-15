@@ -36,7 +36,9 @@ struct ContentView: View {
             .padding(2)
             SmartTextEditor(
                 text: $viewModel.text,
-                textFormatter: MonospaceEverythingParser())
+                textFormatter: MonospaceEverythingParser(
+                    inner: MarkdownFormatter(
+                        tokenizer: MarkdownTokenizer())))
                 .drawsBackground(true)
                 .backgroundColor(NSColor.clear)
         }

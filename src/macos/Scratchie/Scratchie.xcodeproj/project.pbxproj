@@ -38,6 +38,7 @@
 		BCFF8FE325FF667B0015BE27 /* MarkdownHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD725FF667B0015BE27 /* MarkdownHeading.swift */; };
 		BCFF8FE425FF667B0015BE27 /* MarkdownItalic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FD825FF667B0015BE27 /* MarkdownItalic.swift */; };
 		BCFF8FE925FF668B0015BE27 /* MarkdownTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FE825FF668B0015BE27 /* MarkdownTokenizerTests.swift */; };
+		BCFF900025FF6ABF0015BE27 /* MarkdownFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFF8FFF25FF6ABF0015BE27 /* MarkdownFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		BCFF8FD725FF667B0015BE27 /* MarkdownHeading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownHeading.swift; sourceTree = "<group>"; };
 		BCFF8FD825FF667B0015BE27 /* MarkdownItalic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownItalic.swift; sourceTree = "<group>"; };
 		BCFF8FE825FF668B0015BE27 /* MarkdownTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTokenizerTests.swift; sourceTree = "<group>"; };
+		BCFF8FFF25FF6ABF0015BE27 /* MarkdownFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			children = (
 				BC60791F25F31BA000E96304 /* NoOpFormatter.swift */,
 				BC4A8B7525FDE766009C1A8D /* MonospaceFormatter.swift */,
+				BCFF8FFF25FF6ABF0015BE27 /* MarkdownFormatter.swift */,
 			);
 			path = Formatters;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				BCC83EB025F0EAA900315329 /* ScratchpadViewModel.swift in Sources */,
 				BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */,
 				BC4A8B4025FDD797009C1A8D /* SmartTextEditor.swift in Sources */,
+				BCFF900025FF6ABF0015BE27 /* MarkdownFormatter.swift in Sources */,
 				BCFF8FDA25FF667B0015BE27 /* MarkdownLink.swift in Sources */,
 				BC60792025F31BA000E96304 /* NoOpFormatter.swift in Sources */,
 				BCFF8FDF25FF667B0015BE27 /* MarkdownHorizontalRule.swift in Sources */,
