@@ -8,7 +8,7 @@
 import AppKit
 import SwiftUI
 
-public struct YKTextEditor: NSViewRepresentable {
+public struct SmartTextEditor: NSViewRepresentable {
     
     @Binding var text: String {
         didSet {
@@ -88,7 +88,7 @@ public struct YKTextEditor: NSViewRepresentable {
     }
 }
 
-extension YKTextEditor {
+extension SmartTextEditor {
     public func allowsDocumentBackgroundColorChange(_ allowsChange: Bool) -> Self {
         var editor = self
         editor.allowsDocumentBackgroundColorChange = allowsChange

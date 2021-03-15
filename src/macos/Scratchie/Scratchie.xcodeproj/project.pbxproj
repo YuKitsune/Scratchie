@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BC4A8B4025FDD797009C1A8D /* YKTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A8B3F25FDD797009C1A8D /* YKTextEditor.swift */; };
+		BC4A8B4025FDD797009C1A8D /* SmartTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A8B3F25FDD797009C1A8D /* SmartTextEditor.swift */; };
 		BC4A8B4625FDD819009C1A8D /* TextFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A8B4525FDD819009C1A8D /* TextFormatter.swift */; };
 		BC4A8B4B25FDD987009C1A8D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A8B4A25FDD987009C1A8D /* Coordinator.swift */; };
 		BC4A8B7625FDE766009C1A8D /* MonospaceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A8B7525FDE766009C1A8D /* MonospaceFormatter.swift */; };
@@ -45,7 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BC4A8B3F25FDD797009C1A8D /* YKTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKTextEditor.swift; sourceTree = "<group>"; };
+		BC4A8B3F25FDD797009C1A8D /* SmartTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartTextEditor.swift; sourceTree = "<group>"; };
 		BC4A8B4525FDD819009C1A8D /* TextFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatter.swift; sourceTree = "<group>"; };
 		BC4A8B4A25FDD987009C1A8D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		BC4A8B7525FDE766009C1A8D /* MonospaceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonospaceFormatter.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		BC4A8B4425FDD79D009C1A8D /* YKTextEditor */ = {
 			isa = PBXGroup;
 			children = (
-				BC4A8B3F25FDD797009C1A8D /* YKTextEditor.swift */,
+				BC4A8B3F25FDD797009C1A8D /* SmartTextEditor.swift */,
 				BC60792D25F31D7300E96304 /* CustomTextView.swift */,
 				BC4A8B4525FDD819009C1A8D /* TextFormatter.swift */,
 				BC4A8B4A25FDD987009C1A8D /* Coordinator.swift */,
@@ -344,7 +344,7 @@
 				BCD2379B256E5FCE0087ACC5 /* ContentView.swift in Sources */,
 				BCC83EB025F0EAA900315329 /* ScratchpadViewModel.swift in Sources */,
 				BCD23799256E5FCE0087ACC5 /* ScratchieApp.swift in Sources */,
-				BC4A8B4025FDD797009C1A8D /* YKTextEditor.swift in Sources */,
+				BC4A8B4025FDD797009C1A8D /* SmartTextEditor.swift in Sources */,
 				BC60792025F31BA000E96304 /* NoOpFormatter.swift in Sources */,
 				BCCA187825E3A8B300AAC452 /* ScratchpadProvider.swift in Sources */,
 			);

@@ -34,7 +34,7 @@ struct ContentView: View {
                 .aspectRatio(1, contentMode: .fit) // This prevents the button from taking all available horizontal space
             }
             .padding(2)
-            YKTextEditor(
+            SmartTextEditor(
                 text: $viewModel.text,
                 textFormatter: MonospaceEverythingParser())
                 .backgroundColor(NSColor.clear)

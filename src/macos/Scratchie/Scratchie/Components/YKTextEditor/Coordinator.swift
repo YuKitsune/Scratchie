@@ -8,14 +8,14 @@
 import Foundation
 import AppKit
 
-extension YKTextEditor {
+extension SmartTextEditor {
     public class Coordinator: NSObject, NSTextViewDelegate {
 
-        var parent: YKTextEditor
+        var parent: SmartTextEditor
         var selectedRanges: [NSValue] = []
         var updatingNSView = false
         
-        public init(_ parent: YKTextEditor) {
+        public init(_ parent: SmartTextEditor) {
             self.parent = parent
         }
         
