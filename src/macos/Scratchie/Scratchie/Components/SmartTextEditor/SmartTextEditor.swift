@@ -68,11 +68,11 @@ public struct SmartTextEditor: NSViewRepresentable {
         context.coordinator.updatingNSView = true
         view.text = text
         
-        let formattedText = textFormatter.format(text)
-        
         updateTextViewModifiers(view, isFirstRender: false)
-        
+                
+        let formattedText = textFormatter.format(text)
         view.attributedText = formattedText
+        
         view.selectedRanges = context.coordinator.selectedRanges
         context.coordinator.updatingNSView = false
     }

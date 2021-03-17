@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 class MarkdownFormatter: TextFormatter {
+    
+    let inner: TextFormatter?
     let tokenizer: MarkdownTokenizer
     
-    init (tokenizer: MarkdownTokenizer) {
+    init (tokenizer: MarkdownTokenizer, inner: TextFormatter? = nil) {
+        self.inner = inner
         self.tokenizer = tokenizer
     }
     
@@ -18,9 +22,39 @@ class MarkdownFormatter: TextFormatter {
         
         let text = attributedString.string
         let tokens = tokenizer.tokenize(text)
-        
+
+        var position = 0
         for token in tokens {
-            
+            attributedString.addAttribute(
+                .font,
+                value: getAttributeForToken(token),
+                range: NSRange(location: position, length: token.value.count))
+            position += token.value.count
         }
+        
+        inner?.format(attributedString)
+    }
+    
+    func getAttributeForToken(_ token: MarkdownToken) -> Any {
+        switch token {
+        
+        // MARK: Heading
+        case let heading as MarkdownHeading:
+            
+            let font: NSFont
+            switch heading.level {
+            case 1: font = NSFont.monospacedSystemFont(ofSize: 34, weight: .regular); break;
+            case 2: font = NSFont.monospacedSystemFont(ofSize: 28, weight: .regular); break;
+            case 3: font = NSFont.monospacedSystemFont(ofSize: 22, weight: .regular); break;
+            case 4: font = NSFont.monospacedSystemFont(ofSize: 20, weight: .regular); break;
+            case 5: font = NSFont.monospacedSystemFont(ofSize: 17, weight: .semibold); break;
+            default: font = NSFont.monospacedSystemFont(ofSize: 17, weight: .regular); break;
+            }
+            
+            return font
+            
+        default: return NSFont.monospacedSystemFont(ofSize: 17, weight: .regular)
+        }
+        
     }
 }

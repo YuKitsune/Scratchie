@@ -11,7 +11,7 @@ import AppKit
 public class MonospaceEverythingParser: TextFormatter {
     let inner: TextFormatter?
     
-    init (inner: TextFormatter?) {
+    init (inner: TextFormatter? = nil) {
         self.inner = inner
     }
     
