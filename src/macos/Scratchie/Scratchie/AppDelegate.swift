@@ -57,7 +57,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func showPopover() {
-        // Bug: Popover is not centered
         if let button = statusBarItem?.button {
             self.popover?.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }

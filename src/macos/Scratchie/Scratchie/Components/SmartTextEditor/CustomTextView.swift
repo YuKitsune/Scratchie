@@ -13,15 +13,15 @@ public final class CustomTextView: NSView {
     
     weak var delegate: NSTextViewDelegate?
     
-    var attributedText: NSAttributedString {
-        didSet {
-            textView.textStorage?.setAttributedString(attributedText)
-        }
-    }
-    
     var text: String {
         didSet {
             textView.string = text
+        }
+    }
+    
+    var attributedText: NSAttributedString {
+        didSet {
+            textView.textStorage?.setAttributedString(attributedText)
         }
     }
     
@@ -91,13 +91,14 @@ public final class CustomTextView: NSView {
         textView.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         textView.minSize = NSSize(width: 0, height: contentSize.height)
         textView.textColor = NSColor.labelColor
+        textView.allowsUndo = true
         
         return textView
     }()
 
     init(text: String, font: NSFont?) {
-        self.font       = font
-        self.text       = text
+        self.font = font
+        self.text = text
         self.attributedText = NSMutableAttributedString()
         
         super.init(frame: .zero)

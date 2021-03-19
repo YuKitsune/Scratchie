@@ -19,14 +19,6 @@ extension SmartTextEditor {
             self.parent = parent
         }
         
-        public func textView(
-            _ textView: NSTextView,
-            shouldChangeTextIn affectedCharRange: NSRange,
-            replacementString: String?
-        ) -> Bool {
-            return true
-        }
-        
         public func textDidBeginEditing(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
             
@@ -37,9 +29,15 @@ extension SmartTextEditor {
         public func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
 
-            let content: String = String(textView.textStorage?.string ?? "")
-            self.parent.text = content
+            self.parent.text = textView.string
             selectedRanges = textView.selectedRanges
+        }
+        
+        public func textDidEndEditing(_ notification: Notification) {
+            guard let textView = notification.object as? NSTextView else { return }
+            
+            self.parent.text = textView.string
+            self.parent.onCommit()
         }
         
         public func textViewDidChangeSelection(_ notification: Notification) {
@@ -51,15 +49,6 @@ extension SmartTextEditor {
             DispatchQueue.main.async {
                 callback(ranges)
             }
-        }
-        
-        public func textDidEndEditing(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView else {
-                return
-            }
-            
-            self.parent.text = textView.string
-            self.parent.onCommit()
         }
     }
 }
