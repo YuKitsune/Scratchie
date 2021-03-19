@@ -10,7 +10,7 @@ import Foundation
 class ScratchpadViewModel: ObservableObject {
     private let provider: ScratchpadProvider
     
-    public var text: String {
+    @Published public var text: String {
         didSet {
             onInternalChange()
         }
