@@ -12,6 +12,8 @@ class MarkdownFormatter: TextFormatter {
     
     let inner: TextFormatter?
     let tokenizer: MarkdownTokenizer
+    let colors: [NSColor] = [ .systemRed, .systemGreen]
+    
     
     init (tokenizer: MarkdownTokenizer, inner: TextFormatter? = nil) {
         self.inner = inner
@@ -22,14 +24,33 @@ class MarkdownFormatter: TextFormatter {
         
         let text = attributedString.string
         let tokens = tokenizer.tokenize(text)
-
+                
         var position = 0
+        var index = 0
+        
         for token in tokens {
+            var length = token.value.count + 1
+            
+            // Make sure our length doesn't overrun the string
+            if position + length > attributedString.length {
+                length = attributedString.length - position
+            }
+            
+            let range = NSRange(location: position, length: length)
+            
             attributedString.addAttribute(
                 .font,
                 value: getAttributeForToken(token),
-                range: NSRange(location: position, length: token.value.count))
-            position += token.value.count
+                range: range)
+            
+            let isEven = index % 2 == 0
+            attributedString.addAttribute(
+                .backgroundColor,
+                value: colors[isEven ? 0 : 1],
+                range: range)
+            
+            position += length 
+            index += 1
         }
         
         inner?.format(attributedString)
