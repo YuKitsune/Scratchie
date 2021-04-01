@@ -12,8 +12,7 @@ class MarkdownFormatter: TextFormatter {
     
     let inner: TextFormatter?
     let tokenizer: MarkdownTokenizer
-    let colors: [NSColor] = [ .systemRed, .systemGreen]
-    let useDebugColors = false
+    static let defaultFontSize: CGFloat = 17
     
     
     init (tokenizer: MarkdownTokenizer, inner: TextFormatter? = nil) {
@@ -25,10 +24,14 @@ class MarkdownFormatter: TextFormatter {
         
         let text = attributedString.string
         let tokens = tokenizer.tokenize(text)
-                
-        var position = 0
-        var index = 0
+        format(tokens: tokens, attributedString: attributedString)
         
+        inner?.format(attributedString)
+    }
+    
+    func format(tokens: [MarkdownToken], attributedString: NSMutableAttributedString) {
+        
+        var position = 0
         for token in tokens {
             var length = token.value.count + 1
             
@@ -39,27 +42,14 @@ class MarkdownFormatter: TextFormatter {
             
             let range = NSRange(location: position, length: length)
             
-            attributedString.addAttribute(
-                .font,
-                value: getAttributeForToken(token),
-                range: range)
-            
-            if useDebugColors {
-                let isEven = index % 2 == 0
-                attributedString.addAttribute(
-                    .backgroundColor,
-                    value: colors[isEven ? 0 : 1],
-                    range: range)
-            }
-            
-            position += length 
-            index += 1
+            addAttributesForToken(token: token, range: range, attributedString: attributedString)
+                        
+            position += length
         }
-        
-        inner?.format(attributedString)
     }
     
-    func getAttributeForToken(_ token: MarkdownToken) -> Any {
+    func addAttributesForToken(token: MarkdownToken, range: NSRange, attributedString: NSMutableAttributedString) {
+        
         switch token {
         
         // MARK: Heading
@@ -67,18 +57,67 @@ class MarkdownFormatter: TextFormatter {
             
             let font: NSFont
             switch heading.level {
-            case 1: font = NSFont.monospacedSystemFont(ofSize: 34, weight: .regular); break;
-            case 2: font = NSFont.monospacedSystemFont(ofSize: 28, weight: .regular); break;
-            case 3: font = NSFont.monospacedSystemFont(ofSize: 22, weight: .regular); break;
-            case 4: font = NSFont.monospacedSystemFont(ofSize: 20, weight: .regular); break;
-            case 5: font = NSFont.monospacedSystemFont(ofSize: 17, weight: .semibold); break;
-            default: font = NSFont.monospacedSystemFont(ofSize: 17, weight: .regular); break;
+            case 1: font = getPreferredFont(withSize: 34); break;
+            case 2: font = getPreferredFont(withSize: 28); break;
+            case 3: font = getPreferredFont(withSize: 22); break;
+            case 4: font = getPreferredFont(withSize: 20); break;
+            case 5: font = getPreferredFont(withWeight: .semibold); break;
+            default: font = getPreferredFont(); break;
             }
+
+            attributedString.addAttribute(
+                .font,
+                value: font,
+                range: range)
             
+        // MARK: Bold
+        case _ as MarkdownBold:
+            attributedString.addAttribute(
+                .font,
+                value: getPreferredFont(withWeight: .bold),
+                range: range)
+            break;
+            
+        // MARK: Underline
+        case _ as MarkdownUnderline:
+            attributedString.addAttribute(
+                .underlineStyle,
+                value: 1,
+                range: range)
+            break;
+            
+        // MARK: Strikethrough
+        case _ as MarkdownStrikethrough:
+            attributedString.addAttributes(
+                [
+                    .font: getPreferredFont(),
+                    .strikethroughStyle: 1
+                ],
+                range: range)
+            break;
+            
+        default: attributedString.addAttribute(
+            .font,
+            value: getPreferredFont(),
+            range: range)
+        }
+    }
+    
+    func getPreferredFont(
+        withSize size: CGFloat = defaultFontSize,
+        withWeight weight: NSFont.Weight = .regular,
+        withTraits maybeTraits: NSFontDescriptor.SymbolicTraits? = nil) -> NSFont {
+        let font = NSFont.monospacedSystemFont(ofSize: size, weight: weight)
+        
+        guard let traits = maybeTraits else {
             return font
-            
-        default: return NSFont.monospacedSystemFont(ofSize: 17, weight: .regular)
         }
         
+        let fontDescriptor = font.fontDescriptor.withSymbolicTraits(traits)
+        guard let fontWithTraits = NSFont(descriptor: fontDescriptor, size: size) else {
+            return font
+        }
+        
+        return fontWithTraits
     }
 }
