@@ -8,7 +8,7 @@
 import Foundation
 import AppKit
 
-struct NoOpFormatter: TextFormatter {
+class NoOpFormatter: TextFormatter {
     func format(_ attributedString: NSMutableAttributedString) {
     }
 }

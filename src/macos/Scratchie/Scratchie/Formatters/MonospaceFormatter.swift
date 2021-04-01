@@ -8,7 +8,7 @@
 import Foundation
 import AppKit
 
-public class MonospaceEverythingParser: TextFormatter {
+class MonospaceFormatter: TextFormatter {
     let inner: TextFormatter?
     
     init (inner: TextFormatter? = nil) {

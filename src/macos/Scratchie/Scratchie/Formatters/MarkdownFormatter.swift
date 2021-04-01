@@ -13,6 +13,7 @@ class MarkdownFormatter: TextFormatter {
     let inner: TextFormatter?
     let tokenizer: MarkdownTokenizer
     let colors: [NSColor] = [ .systemRed, .systemGreen]
+    let useDebugColors = false
     
     
     init (tokenizer: MarkdownTokenizer, inner: TextFormatter? = nil) {
@@ -43,11 +44,13 @@ class MarkdownFormatter: TextFormatter {
                 value: getAttributeForToken(token),
                 range: range)
             
-            let isEven = index % 2 == 0
-            attributedString.addAttribute(
-                .backgroundColor,
-                value: colors[isEven ? 0 : 1],
-                range: range)
+            if useDebugColors {
+                let isEven = index % 2 == 0
+                attributedString.addAttribute(
+                    .backgroundColor,
+                    value: colors[isEven ? 0 : 1],
+                    range: range)
+            }
             
             position += length 
             index += 1
