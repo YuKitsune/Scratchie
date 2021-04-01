@@ -11,7 +11,7 @@ public class MarkdownTokenizer {
     func tokenize(_ text: String) -> [MarkdownToken] {
         
         // Split the input into individual lines
-        let lines = text.split(separator: "\n")
+        let lines = text.split(separator: "\n", omittingEmptySubsequences: false)
         var tokens = [MarkdownToken]()
         
         var currentCodeBlock: MarkdownCodeBlock?
