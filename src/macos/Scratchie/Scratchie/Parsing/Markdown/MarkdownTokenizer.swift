@@ -8,6 +8,9 @@
 import Foundation
 import AppKit
 
+// Todo: Add convenience init for specifying prefix and suffix strings
+// Todo: Add commonly used rules
+//  E.g: Cannot begin part way through a line
 class TokenBuilderFactory {
     let beginningPredicate: (StringTraverser) -> Bool
     let completionPredicate: (StringTraverser) -> Bool
@@ -23,6 +26,9 @@ class TokenBuilderFactory {
         TokenBuilder(startIndex: startIndex, completionPredicate: completionPredicate)
     }
 }
+
+// Todo: Expose current builders to prevent overlapping tokens
+//  E.g: Don't want bold inside of a code block
 
 class TokenBuilder {
     let startIndex: Int
