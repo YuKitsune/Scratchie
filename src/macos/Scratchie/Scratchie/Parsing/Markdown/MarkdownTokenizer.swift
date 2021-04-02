@@ -6,6 +6,180 @@
 //
 
 import Foundation
+import AppKit
+
+
+class TokenBuilderFactory {
+    let beginningPredicate: (StringTraverser) -> Bool
+    let completionPredicate: (StringTraverser) -> Bool
+}
+
+class TokenFactory {
+    let id = UUID()
+    let startIndex: Int
+    var length: Int
+
+    let isFinished: (_ peeker: peekFunction) -> Bool
+    let tokenFactory: () -> Token
+
+    init (startIndex: Int, isFinishedPredicate: @escaping (peekFunction) -> Bool, tokenFactory: @escaping () -> Token) {
+        self.startIndex = startIndex
+        self.isFinished = isFinishedPredicate
+        self.tokenFactory = tokenFactory
+    }
+
+    func continueEating() {
+        length += 1
+    }
+}
+
+enum TokenType {
+}
+
+public class Token {
+    var tokenType: TokenType = .Plaintext
+    var startIndex: Int
+    var length: Int
+
+    var endIndex: Int {
+        get {
+            startIndex + length
+        }
+    }
+
+    var range: NSRange {
+        get {
+            NSRange(location: startIndex, length: length)
+        }
+    }
+}
+
+public class RealMarkdownTokenizer {
+    let text: String
+
+    private var index = 0
+
+    private var pendingTokens: [TokenFactory] = []
+    private var tokens: [Token] = []
+
+    init (text: String) {
+        self.text = text
+    }
+
+    func getTokens() {
+
+        setInitialState()
+
+        while (index > text.count) {
+            checkForNewTokens()
+            checkPendingTokens()
+        }
+    }
+
+    private func setInitialState() {
+        index = 0
+    }
+
+    private func checkForNewTokens() {
+
+        // MARK: Headings
+        if peek(length: -1) != "\n" && getCurrentCharacter() == "#" {
+            startNewToken(
+                until: { peekFunc in peekFunc(0) == "\n"},
+                tokenFactory: { TODO })
+            return
+        }
+
+        // MARK: Bold
+        if peek(length: 2) == "**" {
+            startNewToken(
+                    until: { peekFunc in peekFunc(-2) == "**"},
+                    tokenFactory: { TODO })
+            return
+        }
+
+        if peek(length: 2) == "__" {
+            startNewToken(
+                    until: { peekFunc in peekFunc(-2) == "__"},
+                    tokenFactory: { TODO })
+            return
+        }
+
+        // MARK: Italic
+        if peek(length: 1) == "*" {
+            startNewToken(
+                    until: { peekFunc in peekFunc(-1) == "*"},
+                    tokenFactory: { TODO })
+            return
+        }
+
+        if peek(length: 1) == "_" {
+            startNewToken(
+                    until: { peekFunc in peekFunc(-1) == "_"},
+                    tokenFactory: { TODO })
+            return
+        }
+
+        // MARK: Todo: Blockquote
+
+
+    }
+
+    private func checkPendingTokens() {
+
+        var completedTokenFactoryIds: [UUID] = []
+        pendingTokens.forEach { tokenFactory in
+
+            // If the token has finished, then we can add it to our token list
+            if (tokenFactory.isFinished(peek)) {
+
+                // Make the new token
+                let newToken = tokenFactory.tokenFactory()
+                tokens.append(newToken)
+
+                // We're done with this factory, mark it for removal
+                completedTokenFactoryIds.append(tokenFactory.id)
+            } else {
+                // Otherwise, keep extending the length
+                tokenFactory.continueEating()
+            }
+        }
+
+        // Remove any completed factories
+        completedTokenFactoryIds.forEach { id in
+            pendingTokens.removeAll { factory in factory.id == id }
+        }
+    }
+
+    private func startNewToken(
+        until isFinishedPredicate: @escaping (peekFunction) -> Bool,
+        tokenFactory: @escaping () -> Token) {
+        let factory = TokenFactory(
+                startIndex: index,
+                isFinishedPredicate: isFinishedPredicate,
+                tokenFactory: tokenFactory)
+        pendingTokens.append(factory)
+    }
+
+    private func getCurrentCharacter() -> Character {
+        let currentCharacterAsString = String(text.dropFirst(index).prefix(1) as Substring)
+        return Character(currentCharacterAsString)
+    }
+
+    private func peek(length: Int = 1) -> Substring {
+        if (length > 0) {
+            return text.dropFirst(index).prefix(length)
+        }
+
+        if (length < 0) {
+            return text.dropFirst(index - length).prefix(length)
+        }
+
+        return text.dropFirst(index - 1).prefix(1)
+    }
+}
+
+
 
 public class MarkdownTokenizer {
     func tokenize(_ text: String) -> [MarkdownToken] {
