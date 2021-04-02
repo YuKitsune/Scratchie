@@ -13,8 +13,8 @@ class TokenBuilderFactory {
     let completionPredicate: (StringTraverser) -> Bool
 
     init (
-        startingFrom beginningPredicate: (StringTraverser) -> Bool,
-        until completionPredicate: (StringTraverser) -> Bool) {
+        startingFrom beginningPredicate: @escaping (StringTraverser) -> Bool,
+        until completionPredicate: @escaping (StringTraverser) -> Bool) {
         self.beginningPredicate = beginningPredicate
         self.completionPredicate = completionPredicate
     }
@@ -26,11 +26,11 @@ class TokenBuilderFactory {
 
 class TokenBuilder {
     let startIndex: Int
-    var length: Int
+    var length: Int = 0
 
     let isComplete: (StringTraverser) -> Bool
 
-    init (startIndex: Int, completionPredicate: (StringTraverser) -> Bool) {
+    init (startIndex: Int, completionPredicate: @escaping (StringTraverser) -> Bool) {
         self.startIndex = startIndex
         self.isComplete = completionPredicate
     }
@@ -48,13 +48,13 @@ public class Token {
     let startIndex: Int
     let length: Int
 
-    let endIndex: Int {
+    var endIndex: Int {
         get {
             startIndex + length
         }
     }
 
-    let range: NSRange {
+    var range: NSRange {
         get {
             NSRange(location: startIndex, length: length)
         }
@@ -68,8 +68,7 @@ public class Token {
 
 public class NewMarkdownTokenizer : StringTraverser {
     let text: String
-
-    private var index = 0
+    var currentIndex: Int = 0
 
     private var tokenBuilderFactories: [TokenBuilderFactory] = [
 
@@ -107,8 +106,8 @@ public class NewMarkdownTokenizer : StringTraverser {
         // Todo: Links and Images
     ]
 
-    private var tokenBuilders: [TokenBuilder]
-    private var tokens: [Token]
+    private var tokenBuilders: [TokenBuilder] = []
+    private var tokens: [Token] = []
 
     init (text: String) {
         self.text = text
@@ -118,14 +117,15 @@ public class NewMarkdownTokenizer : StringTraverser {
 
         setInitialState()
 
-        while (index > text.count) {
+        while (currentIndex > text.count) {
             checkForNewTokens()
             checkPendingTokens()
+            advance(by: 1)
         }
     }
 
     private func setInitialState() {
-        index = 0
+        currentIndex = 0
         tokenBuilders = []
         tokens = []
     }
@@ -133,7 +133,7 @@ public class NewMarkdownTokenizer : StringTraverser {
     private func checkForNewTokens() {
         tokenBuilderFactories.forEach { factory in
             if factory.beginningPredicate(self) {
-                let builder = factory.createBuilder()
+                let builder = factory.createBuilder(startIndex: currentIndex)
                 tokenBuilders.append(builder)
             }
         }
@@ -156,6 +156,10 @@ public class NewMarkdownTokenizer : StringTraverser {
 
         // Remove any completed factories
         tokenBuilders.removeAll { builder in builder.isComplete(self) }
+    }
+    
+    func advance(by length: Int) {
+        currentIndex += length
     }
 }
 

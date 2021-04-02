@@ -10,7 +10,9 @@ enum StringTraverserError: Error {
 
 protocol StringTraverser {
     var text: String { get }
-    var currentIndex: Int { get }
+    var currentIndex: Int { get set }
+    
+    func advance(by length: Int)
 }
 
 extension StringTraverser {
@@ -38,6 +40,6 @@ extension StringTraverser {
 
     func peekBehind(by length: UInt = 1) -> Substring {
         let startIndex = currentIndex - Int(length)
-        text.dropFirst(startIndex).prefix(Int(length))
+        return text.dropFirst(startIndex).prefix(Int(length))
     }
 }
