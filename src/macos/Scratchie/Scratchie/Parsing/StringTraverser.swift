@@ -4,10 +4,6 @@
 
 import Foundation
 
-enum StringTraverserError: Error {
-    case InvalidPeekLength(length: Int)
-}
-
 protocol StringTraverser {
     var text: String { get }
     var currentIndex: Int { get set }
@@ -22,7 +18,7 @@ extension StringTraverser {
         return Character(currentCharacterAsString)
     }
 
-    func peek(by length: Int = 1) throws -> Substring {
+    func peek(by length: Int = 1) throws -> Substring? {
         if (length > 0) {
             return peekAhead(by: UInt(length))
         }
@@ -31,15 +27,18 @@ extension StringTraverser {
             return peekBehind(by: UInt(length))
         }
 
-        throw StringTraverserError.InvalidPeekLength(length: length)
+        return nil
     }
 
-    func peekAhead(by length: UInt = 1) -> Substring {
-        text.dropFirst(currentIndex).prefix(Int(length))
+    func peekAhead(by length: UInt = 1) -> Substring? {
+        if (currentIndex + Int(length) > text.count) { return nil }
+        return text.dropFirst(currentIndex).prefix(Int(length))
     }
 
-    func peekBehind(by length: UInt = 1) -> Substring {
+    func peekBehind(by length: UInt = 1) -> Substring? {
         let startIndex = currentIndex - Int(length)
+        if (startIndex < 0) { return nil }
+
         return text.dropFirst(startIndex).prefix(Int(length))
     }
 }

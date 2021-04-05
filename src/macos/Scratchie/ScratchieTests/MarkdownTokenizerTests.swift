@@ -15,9 +15,7 @@ class MarkdownTokenizerTests: XCTestCase {
     func testHeadingTokenizes() throws {
 
         // Arrange
-        let tokenizer = MarkdownTokenizer()
         var markdownHeadings = [String]()
-
         let numberOfHeadings = 3
         for i in 1...numberOfHeadings {
             let prefix = String.init(repeating: "#", count: i)
@@ -25,43 +23,20 @@ class MarkdownTokenizerTests: XCTestCase {
         }
 
         // Act/Assert
-        var currentHeadingLevel = 1;
         for heading in markdownHeadings {
 
+            let tokenizer = MarkdownTokenizer(text: heading)
+
             // Tokenize
-            let tokens = tokenizer.tokenize(heading)
+            let tokens = tokenizer.getTokens()
             XCTAssertEqual(tokens.count, 1);
 
-            let token = tokens.first!
-            if let headingToken = token as? MarkdownHeading {
-                XCTAssertEqual(headingToken.level, currentHeadingLevel)
-            } else {
-                XCTFail("Token was not MarkdownHeading")
+            guard let token = tokens.first else {
+                XCTFail("No tokens found")
+                return
             }
 
-            currentHeadingLevel += 1
-        }
-    }
-
-    func testHorizontalRuleTokenizes() throws {
-
-        // Arrange
-        let tokenizer = MarkdownTokenizer()
-        let markdownHorizontalRules: [String] = [
-            "***",
-            "---",
-            "___"
-        ]
-
-        // Act/Assert
-        for horizontalRule in markdownHorizontalRules {
-
-            // Tokenize
-            let tokens = tokenizer.tokenize(horizontalRule)
-            XCTAssertEqual(tokens.count, 1);
-
-            let token = tokens.first!
-            XCTAssertTrue(token is MarkdownHorizontalRule)
+            XCTAssertEqual(token.type, TokenType.heading)
         }
     }
 
@@ -70,7 +45,6 @@ class MarkdownTokenizerTests: XCTestCase {
         // Todo: Refactor this test, not happy with using a switch for assertion
 
         // Arrange
-        let tokenizer = MarkdownTokenizer()
         let markdown = """
                        > Line 1 of quote
                        > Line 2 of quote
@@ -79,7 +53,8 @@ class MarkdownTokenizerTests: XCTestCase {
                        """
 
         // Act
-        let tokens = tokenizer.tokenize(markdown)
+        let tokenizer = MarkdownTokenizer(text: markdown)
+        let tokens = tokenizer.getTokens()
 
         // Assert
         XCTAssertEqual(tokens.count, 3)
@@ -87,21 +62,13 @@ class MarkdownTokenizerTests: XCTestCase {
             let token = tokens[i]
 
             switch i {
-            case 0:
-                if let quoteToken = token as? MarkdownQuote {
-                    XCTAssertTrue(quoteToken.isMultiLine())
-                } else {
-                    XCTFail("First token was not a quote")
-                }
-
+            case 0, 1, 3:
+                XCTAssertEqual(token.type, TokenType.quote)
                 break
 
             case 2:
-                if let quoteToken = token as? MarkdownQuote {
-                    XCTAssertFalse(quoteToken.isMultiLine())
-                } else {
-                    XCTFail("2 nd token was not a quote")
-                }
+                XCTAssertEqual(token.type, TokenType.quote)
+
             default: break
             }
         }
@@ -110,40 +77,37 @@ class MarkdownTokenizerTests: XCTestCase {
     func testCodeBlockTokenizes() {
 
         // Arrange
-        let tokenizer = MarkdownTokenizer()
         let markdown = """
-                       this is a paragraph
+                       this is plain text
                        ```
                        var test = 123;
                        ```
-                       this is also a paragraph
+                       this is also plain text
                        """
 
         // Act
-        let tokens = tokenizer.tokenize(markdown)
+        let tokenizer = MarkdownTokenizer(text: markdown)
+        let tokens = tokenizer.getTokens()
 
         // Assert
         XCTAssertEqual(tokens.count, 3)
-        XCTAssertTrue(tokens[1] is MarkdownCodeBlock)
-
-        let codeBlockToken = tokens[1] as! MarkdownCodeBlock
-        XCTAssertNotNil(codeBlockToken)
-        XCTAssertTrue(codeBlockToken.isMultiLine())
+        XCTAssertEqual(tokens[1].type, TokenType.codeBlock)
+        XCTAssertEqual(tokens[2].type, TokenType.plainText)
     }
 
-    func testParagraphTokenizes() {
+    func testPlainTextTokenizes() {
 
         // Arrange
-        let tokenizer = MarkdownTokenizer()
         let markdown = """
                        # This is a heading
-                       this is a paragraph
+                       this is plain text
                        > This is a quote
-                       this is also a paragraph
+                       this is also plain text
                        """
 
         // Act
-        let tokens = tokenizer.tokenize(markdown)
+        let tokenizer = MarkdownTokenizer(text: markdown)
+        let tokens = tokenizer.getTokens()
 
         // Assert
         XCTAssertEqual(tokens.count, 4)
@@ -152,9 +116,9 @@ class MarkdownTokenizerTests: XCTestCase {
 
             switch i {
             case 1, 3:
-                XCTAssertTrue(token is MarkdownParagraph)
+                XCTAssertEqual(token.type, TokenType.plainText)
             default:
-                XCTAssertFalse(token is MarkdownParagraph)
+                XCTAssertNotEqual(token.type, TokenType.plainText)
             }
         }
     }
@@ -162,19 +126,19 @@ class MarkdownTokenizerTests: XCTestCase {
     func testLinkAndImageTokenizes() {
 
         // Arrange
-        let tokenizer = MarkdownTokenizer()
         let normalLink = "https://github.com"
         let imageLink = "https://media.giphy.com/media/uCLiiV2WEUBHYcYc14/giphy.gif"
         let markdown = """
-                       This is a paragraph
+                       This is plain text
                        [This is a link](\(normalLink))
-                       This is also a paragraph
+                       This is also plain text
                        ![This is an image](\(imageLink))
-                       This is a paragraph [with an inline link](\(normalLink)) and also with an ![inline image](\(imageLink))
+                       This is plain text [with an inline link](\(normalLink)) and also with an ![inline image](\(imageLink))
                        """
 
         // Act
-        let tokens = tokenizer.tokenize(markdown)
+        let tokenizer = MarkdownTokenizer(text: markdown)
+        let tokens = tokenizer.getTokens()
 
         // Assert
         XCTAssertEqual(tokens.count, 8)
@@ -184,19 +148,13 @@ class MarkdownTokenizerTests: XCTestCase {
             switch i {
 
             case 1, 5:
-                XCTAssertTrue(token is MarkdownLink)
-                let link = token as! MarkdownLink
-                XCTAssertEqual(link.url, normalLink)
-                XCTAssertFalse(link.isImage)
+                XCTAssertEqual(token.type, TokenType.link)
 
             case 3, 7:
-                XCTAssertTrue(token is MarkdownLink)
-                let link = token as! MarkdownLink
-                XCTAssertEqual(link.url, imageLink)
-                XCTAssertTrue(link.isImage)
+                XCTAssertEqual(token.type, TokenType.image)
                 
             default:
-                XCTAssertTrue(token is MarkdownParagraph)
+                XCTAssertEqual(token.type, TokenType.plainText)
             }
         }
     }

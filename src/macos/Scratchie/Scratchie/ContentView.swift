@@ -39,7 +39,7 @@ struct ContentView: View {
                 textFormatter: MonospaceFormatter(
                     inner: DefaultForegroundColorFormatter(
                         inner: MarkdownFormatter(
-                            tokenizer: MarkdownTokenizer()))))
+                            tokenizerFactory: {text in MarkdownTokenizer(text: text) }))))
                 .drawsBackground(true)
                 .backgroundColor(NSColor.clear)
         }

@@ -11,52 +11,40 @@ import SwiftUI
 class MarkdownFormatter: TextFormatter {
     
     let inner: TextFormatter?
-    let tokenizer: MarkdownTokenizer
+    let tokenizerFactory: (String) -> MarkdownTokenizer
     static let defaultFontSize: CGFloat = 17
     
     
-    init (tokenizer: MarkdownTokenizer, inner: TextFormatter? = nil) {
+    init (tokenizerFactory: @escaping (String) -> MarkdownTokenizer, inner: TextFormatter? = nil) {
         self.inner = inner
-        self.tokenizer = tokenizer
+        self.tokenizerFactory = tokenizerFactory
     }
     
     func format(_ attributedString: NSMutableAttributedString) {
         
         let text = attributedString.string
-        let tokens = tokenizer.tokenize(text)
+        let tokenizer = tokenizerFactory(text)
+        let tokens = tokenizer.getTokens()
         format(tokens: tokens, attributedString: attributedString)
         
         inner?.format(attributedString)
     }
     
-    func format(tokens: [MarkdownToken], attributedString: NSMutableAttributedString) {
-        
-        var position = 0
+    func format(tokens: [Token], attributedString: NSMutableAttributedString) {
         for token in tokens {
-            var length = token.value.count + 1
-            
-            // Make sure our length doesn't overrun the string
-            if position + length > attributedString.length {
-                length = attributedString.length - position
-            }
-            
-            let range = NSRange(location: position, length: length)
-            
-            addAttributesForToken(token: token, range: range, attributedString: attributedString)
-                        
-            position += length
+            addAttributesForToken(token: token, attributedString: attributedString)
         }
     }
     
-    func addAttributesForToken(token: MarkdownToken, range: NSRange, attributedString: NSMutableAttributedString) {
+    func addAttributesForToken(token: Token, attributedString: NSMutableAttributedString) {
         
-        switch token {
+        switch token.type {
         
         // MARK: Heading
-        case let heading as MarkdownHeading:
+        case .heading:
             
             let font: NSFont
-            switch heading.level {
+            switch token.getHeadingLevel(token: token, text: attributedString.string) {
             case 1: font = getPreferredFont(withSize: 34); break;
             case 2: font = getPreferredFont(withSize: 28); break;
             case 3: font = getPreferredFont(withSize: 22); break;
@@ -68,38 +56,38 @@ class MarkdownFormatter: TextFormatter {
             attributedString.addAttribute(
                 .font,
                 value: font,
-                range: range)
+                range: token.range)
             
         // MARK: Bold
-        case _ as MarkdownBold:
+        case .bold:
             attributedString.addAttribute(
                 .font,
                 value: getPreferredFont(withWeight: .bold),
-                range: range)
+                range: token.range)
             break;
             
         // MARK: Underline
-        case _ as MarkdownUnderline:
+        case .underline:
             attributedString.addAttribute(
                 .underlineStyle,
                 value: 1,
-                range: range)
+                range: token.range)
             break;
             
         // MARK: Strikethrough
-        case _ as MarkdownStrikethrough:
+        case .strikethrough:
             attributedString.addAttributes(
                 [
                     .font: getPreferredFont(),
                     .strikethroughStyle: 1
                 ],
-                range: range)
+                range: token.range)
             break;
             
         default: attributedString.addAttribute(
             .font,
             value: getPreferredFont(),
-            range: range)
+            range: token.range)
         }
     }
     

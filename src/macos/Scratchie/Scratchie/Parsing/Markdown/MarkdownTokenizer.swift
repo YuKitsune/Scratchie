@@ -8,126 +8,31 @@
 import Foundation
 import AppKit
 
-// Todo: Add convenience init for specifying prefix and suffix strings
-// Todo: Add commonly used rules
-//  E.g: Cannot begin part way through a line
-class TokenBuilderFactory {
-    let beginningPredicate: (StringTraverser) -> Bool
-    let completionPredicate: (StringTraverser) -> Bool
-
-    init (
-        startingFrom beginningPredicate: @escaping (StringTraverser) -> Bool,
-        until completionPredicate: @escaping (StringTraverser) -> Bool) {
-        self.beginningPredicate = beginningPredicate
-        self.completionPredicate = completionPredicate
-    }
-
-    func createBuilder(startIndex: Int) -> TokenBuilder {
-        TokenBuilder(startIndex: startIndex, completionPredicate: completionPredicate)
-    }
-}
-
-// Todo: Expose current builders to prevent overlapping tokens
-//  E.g: Don't want bold inside of a code block
-
-class TokenBuilder {
-    let startIndex: Int
-    var length: Int = 0
-
-    let isComplete: (StringTraverser) -> Bool
-
-    init (startIndex: Int, completionPredicate: @escaping (StringTraverser) -> Bool) {
-        self.startIndex = startIndex
-        self.isComplete = completionPredicate
-    }
-
-    func continueTODO() {
-        length += 1
-    }
-
-    func build() -> Token {
-        Token(startIndex: startIndex, length: length)
-    }
-}
-
-public class Token {
-    let startIndex: Int
-    let length: Int
-
-    var endIndex: Int {
-        get {
-            startIndex + length
-        }
-    }
-
-    var range: NSRange {
-        get {
-            NSRange(location: startIndex, length: length)
-        }
-    }
-
-    init (startIndex: Int, length: Int) {
-        self.startIndex = startIndex
-        self.length = length
-    }
-}
-
-public class NewMarkdownTokenizer : StringTraverser {
+public class MarkdownTokenizer : StringTraverser {
     let text: String
     var currentIndex: Int = 0
 
-    private var tokenBuilderFactories: [TokenBuilderFactory] = [
-
-        // Heading
-        TokenBuilderFactory(
-            startingFrom: { traverser in traverser.peekBehind(by: 1) == "\n" && traverser.currentCharacter() == "#" },
-            until: { traverser in traverser.peekAhead(by: 1) == "\n" }),
-
-        // Bold
-        TokenBuilderFactory(
-                startingFrom: { traverser in traverser.currentCharacter() == "*" && traverser.peekAhead(by: 1) == "*" },
-                until: { traverser in traverser.peekBehind(by: 1) == "*" && traverser.currentCharacter() == "*" }),
-        TokenBuilderFactory(
-                startingFrom: { traverser in traverser.currentCharacter() == "_" && traverser.peekAhead(by: 1) == "_" },
-                until: { traverser in traverser.peekBehind(by: 1) == "_" && traverser.currentCharacter() == "_" }),
-
-        // Italic
-        TokenBuilderFactory(
-                startingFrom: { traverser in traverser.peekBehind(by: 1) != "*" && traverser.currentCharacter() == "*" },
-                until: { traverser in traverser.currentCharacter() == "*" }),
-        TokenBuilderFactory(
-                startingFrom: { traverser in traverser.peekBehind(by: 1) != "_" && traverser.currentCharacter() == "_" },
-                until: { traverser in traverser.currentCharacter() == "_" }),
-
-        // Todo: Blockquote
-
-        // Code block
-        TokenBuilderFactory(
-                startingFrom: { traverser in traverser.currentCharacter() == "`" && traverser.peekAhead(by: 2) == "``" },
-                until: { traverser in traverser.peekBehind(by: 2) == "`" && traverser.currentCharacter() == "`" }),
-        TokenBuilderFactory(
-                startingFrom: { traverser in traverser.currentCharacter() == "`" && traverser.peekAhead(by: 2) != "``" },
-                until: { traverser in traverser.peekBehind(by: 2) != "`" && traverser.currentCharacter() == "`" }),
-
-        // Todo: Links and Images
-    ]
+    private var tokenBuilderFactories: [TokenBuilderFactory]!
 
     private var tokenBuilders: [TokenBuilder] = []
     private var tokens: [Token] = []
 
     init (text: String) {
         self.text = text
+        self.tokenBuilderFactories = getTokenBuilderFactories()
     }
 
-    func getTokens() {
+    func getTokens() -> [Token] {
 
         setInitialState()
 
-        while (currentIndex > text.count) {
+        while (currentIndex < text.count) {
             checkForNewTokens()
             checkPendingTokens()
             advance(by: 1)
         }
+
+        return tokens
     }
 
     private func setInitialState() {
@@ -138,7 +43,7 @@ public class NewMarkdownTokenizer : StringTraverser {
 
     private func checkForNewTokens() {
         tokenBuilderFactories.forEach { factory in
-            if factory.beginningPredicate(self) {
+            if factory.canMakeFactory() && factory.beginningPredicate(self) {
                 let builder = factory.createBuilder(startIndex: currentIndex)
                 tokenBuilders.append(builder)
             }
@@ -156,7 +61,7 @@ public class NewMarkdownTokenizer : StringTraverser {
                 tokens.append(newToken)
             } else {
                 // Otherwise, keep extending the length
-                builder.continueTODO()
+                builder.continueBuilding()
             }
         }
 
@@ -167,186 +72,60 @@ public class NewMarkdownTokenizer : StringTraverser {
     func advance(by length: Int) {
         currentIndex += length
     }
-}
 
-public class MarkdownTokenizer {
-    func tokenize(_ text: String) -> [MarkdownToken] {
-        
-        // Split the input into individual lines
-        let lines = text.split(separator: "\n", omittingEmptySubsequences: false)
-        var tokens = [MarkdownToken]()
-        
-        var currentCodeBlock: MarkdownCodeBlock?
-        for line in lines {
+    private func getTokenBuilderFactories() -> [TokenBuilderFactory] {
+        [
+            // Heading
+            TokenBuilderFactory(
+                    tokenType: .heading,
+                    startingFrom: { traverser in traverser.peekBehind(by: 1) == "\n" && traverser.currentCharacter() == "#" },
+                    until: { traverser in traverser.peekAhead(by: 1) == "\n" },
+                    predicate: { !self.tokenBuilders.contains { builder in builder.tokenType == .codeBlock } }),
 
-            // First check tokens which consist of multiple lines
+            // Bold
+            TokenBuilderFactory(
+                    tokenType: .bold,
+                    startingFrom: { traverser in traverser.currentCharacter() == "*" && traverser.peekAhead(by: 1) == "*" },
+                    until: { traverser in traverser.peekBehind(by: 1) == "*" && traverser.currentCharacter() == "*" },
+                    predicate: { !self.tokenBuilders.contains { builder in builder.tokenType == .codeBlock } }),
+            TokenBuilderFactory(
+                    tokenType: .bold,
+                    startingFrom: { traverser in traverser.currentCharacter() == "_" && traverser.peekAhead(by: 1) == "_" },
+                    until: { traverser in traverser.peekBehind(by: 1) == "_" && traverser.currentCharacter() == "_" },
+                    predicate: { !self.tokenBuilders.contains { builder in builder.tokenType == .codeBlock } }),
 
-            // MARK: Code block
-            if line.hasPrefix("```") {
-                
-                // Code block done!
-                if currentCodeBlock == nil {
-                    currentCodeBlock = MarkdownCodeBlock(value: "\(line)")
-                } else {
-                    tokens.append(currentCodeBlock!)
-                    currentCodeBlock = nil
-                }
-                
-                continue
-            }
-            
-            if currentCodeBlock != nil {
-                currentCodeBlock?.value.append("\n\(line)")
-                continue
-            }
+            // Italic
+            TokenBuilderFactory(
+                    tokenType: .italic,
+                    startingFrom: { traverser in traverser.peekBehind(by: 1) != "*" && traverser.currentCharacter() == "*" },
+                    until: { traverser in traverser.currentCharacter() == "*" },
+                    predicate: { !self.tokenBuilders.contains { builder in builder.tokenType == .codeBlock } }),
+            TokenBuilderFactory(
+                    tokenType: .italic,
+                    startingFrom: { traverser in traverser.peekBehind(by: 1) != "_" && traverser.currentCharacter() == "_" },
+                    until: { traverser in traverser.currentCharacter() == "_" },
+                    predicate: { !self.tokenBuilders.contains { builder in builder.tokenType == .codeBlock } }),
 
-            // MARK: Quote
-            if line.hasPrefix(">") {
-                if let quote = tokens.last as? MarkdownQuote {
-                    quote.value.append("\n\(line)")
-                } else {
-                    let quoteToken = MarkdownQuote(value: String(line))
-                    tokens.append(quoteToken)
-                }
+            // Strikethrough
+            TokenBuilderFactory(
+                    tokenType: .italic,
+                    startingFrom: { traverser in traverser.currentCharacter() == "~" },
+                    until: { traverser in traverser.currentCharacter() == "~" },
+                    predicate: { !self.tokenBuilders.contains { builder in builder.tokenType == .codeBlock } }),
 
-                continue
-            }
+            // Todo: Blockquote
 
-            // Then check for tokens which consist of one whole line
+            // Code block
+            TokenBuilderFactory(
+                    tokenType: .codeBlock,
+                    startingFrom: { traverser in traverser.currentCharacter() == "`" && traverser.peekAhead(by: 2) == "``" },
+                    until: { traverser in traverser.peekBehind(by: 2) == "`" && traverser.currentCharacter() == "`" }),
+            TokenBuilderFactory(
+                    tokenType: .codeBlock,
+                    startingFrom: { traverser in traverser.currentCharacter() == "`" && traverser.peekAhead(by: 2) != "``" },
+                    until: { traverser in traverser.peekBehind(by: 2) != "`" && traverser.currentCharacter() == "`" }),
 
-            // MARK: Headings
-            if line.hasPrefix("#") {
-                let headingToken = MarkdownHeading(value: String(line))
-                tokens.append(headingToken)
-                continue
-            }
-
-            // MARK: Horizontal Rule
-            if line.count >= 3 &&
-               line.allSatisfy({ character in
-                character == "*" || character == "-" || character == "_"
-               }) {
-                let horizontalRuleToken = MarkdownHorizontalRule(value: String(line))
-                tokens.append(horizontalRuleToken)
-                continue
-            }
-
-            // Made it this far, can only be a paragraph
-            // MARK: Paragraph
-            if let paragraph = tokens.last as? MarkdownParagraph {
-                paragraph.value.append("\n\(line)")
-            } else {
-                let paragraphToken = MarkdownParagraph(value: String(line))
-                tokens.append(paragraphToken)
-            }
-        }
-
-        // First pass complete, now we check for in-line tokens within paragraphs
-        let tokensFromFirstPass = tokens
-        tokens.removeAll()
-        
-        for token in tokensFromFirstPass {
-            
-            // Not a paragraph, don't care
-            guard let paragraph = token as? MarkdownParagraph else {
-                tokens.append(token)
-                continue
-            }
-        
-            // We've hit a paragraph, check for in-line tokens
-            var tokensForParagraph = [MarkdownToken]()
-            var currentToken: MarkdownToken?
-            var lastCharacter: Character?
-            for character in paragraph.value {
-
-                // Update the last character once this loop re-itterates
-                defer { lastCharacter = character }
-
-                // If we're currently working on a token that isn't a paragraph, append and check if it's finished
-                if currentToken != nil && (currentToken as? MarkdownParagraph?) == nil {
-                    currentToken!.value.append(character)
-
-                    if currentToken!.isComplete() {
-                        tokensForParagraph.append(currentToken!)
-                        currentToken = nil
-                    }
-                    
-                    continue
-                }
-
-                // Check for each token type
-
-                // MARK: Bold
-                if character == "*" && lastCharacter == "*" {
-
-                    if currentToken != nil {
-                        tokensForParagraph.append(currentToken!)
-                    }
-                    currentToken = MarkdownBold(value: "**")
-                    continue
-                }
-
-                // MARK: Underline
-                if character == "_" || lastCharacter == "_"{
-
-                    if currentToken != nil {
-                        tokensForParagraph.append(currentToken!)
-                    }
-                    currentToken = MarkdownUnderline(value: "__")
-                    continue
-                }
-
-                // MARK: Strikethrough
-                if character == "~" || lastCharacter == "~" {
-
-                    if currentToken != nil {
-                        tokensForParagraph.append(currentToken!)
-                    }
-                    currentToken = MarkdownStrikethrough(value: "~~")
-                    continue
-                }
-
-                // MARK: Italic
-                if character == "*" || character == "_"{
-
-                    if currentToken != nil {
-                        tokensForParagraph.append(currentToken!)
-                    }
-                    currentToken = MarkdownItalic(value: String(repeating: character, count: 2))
-                    continue
-                }
-                
-                // MARK: Link
-                if character == "[" {
-                    if currentToken != nil && currentToken is MarkdownParagraph {
-                        tokensForParagraph.append(currentToken!)
-                        
-                        if lastCharacter == "!" {
-                            currentToken = MarkdownLink(characters: [lastCharacter!, character])
-                        } else {
-                            currentToken = MarkdownLink(character: character)
-                        }
-                        
-                        continue
-                    }
-                }
-
-                // Couldn't find any matching tokens prefixes, it's just a paragraph
-                if currentToken == nil {
-                    currentToken = MarkdownParagraph(value: String(character))
-                    continue
-                } else {
-                    currentToken?.value.append(character)
-                }
-            }
-
-            if currentToken != nil {
-                tokensForParagraph.append(currentToken!)
-            }
-
-            tokens.append(contentsOf: tokensForParagraph)
-        }
-
-        return tokens
+            // Todo: Links and Images
+        ]
     }
 }
