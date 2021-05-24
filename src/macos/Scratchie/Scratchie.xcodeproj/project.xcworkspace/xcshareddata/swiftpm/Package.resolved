@@ -9,6 +9,15 @@
           "revision": "c13662730cb5bc28de4a799854bbb018a90649bf",
           "version": null
         }
+      },
+      {
+        "package": "MarkdownKit",
+        "repositoryURL": "https://github.com/YuKitsune/MarkdownKit/",
+        "state": {
+          "branch": "yukitsune/use-existing-mutableattributedstring",
+          "revision": "0361fdf2538a23319cb00c958290ed96baa42e77",
+          "version": null
+        }
       }
     ]
   },
